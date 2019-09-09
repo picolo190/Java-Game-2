@@ -12,10 +12,14 @@ public class Player implements GameObject {
     private Rectangle sprite;
     private int playerHealth;
     private int speed;
+    //0-up, 1-right, 2-down, 3-left
+    private int direction;
+    private boolean didMove=false;
     private boolean movingUp=false, movingDown=false, movingRight=false, movingLeft=false;
 
     public Player(int x, int y, int playerHealth, int speed){
         sprite= new Rectangle(x, y,ImageLoader.getInstance().getMonsterLeft());
+        direction=3;
         this.playerHealth=playerHealth;
         this.speed=speed;
     }
@@ -47,20 +51,53 @@ public class Player implements GameObject {
     @Override
     public void update(Renderer renderer){
 
-        if(movingDown){
-            sprite.updateY(speed);
-        }
-        if(!renderer.getMap().checkCollision(sprite)) {
-            if (movingLeft) {
-                sprite.updateX(speed * (-1));
-            }
-        }
+        int xCollisionOffset=5;
+        int yCollisionOffset=5;
 
+        Rectangle collisionCheckRect= new Rectangle(sprite.getX(), sprite.getY(), sprite.getWidth()+xCollisionOffset, sprite.getHeight()+yCollisionOffset);
+
+        int lastDirection=direction;
+
+
+        if(movingDown){
+            lastDirection=2;
+            collisionCheckRect.setY(sprite.getY()+speed);
+        }
+        if (movingLeft) {
+            lastDirection=3;
+            collisionCheckRect.setX(sprite.getX()-speed);
+        }
         if (movingUp) {
-                sprite.updateY(speed * (-1));
+            lastDirection=0;
+            collisionCheckRect.setY(sprite.getY()-speed);
         }
         if(movingRight){
-            sprite.updateX(speed);
+            lastDirection=1;
+            collisionCheckRect.setX(sprite.getX()+speed);
+        }
+        if(lastDirection != direction){
+            direction=lastDirection;
+        }
+        if(movingRight || movingLeft || movingDown ||movingUp){
+            collisionCheckRect.setX(collisionCheckRect.getX()+xCollisionOffset);
+            collisionCheckRect.setY(collisionCheckRect.getY()+yCollisionOffset);
+
+            Rectangle axisCheckRect= new Rectangle(collisionCheckRect.getX(), collisionCheckRect.getY(),
+                    collisionCheckRect.getWidth(), collisionCheckRect.getHeight());
+
+            if(!renderer.getMap().checkCollision(axisCheckRect)){
+                sprite.setX(collisionCheckRect.getX() -xCollisionOffset);
+            }
+
+            axisCheckRect.setX(sprite.getX()+xCollisionOffset);
+            axisCheckRect.setY(collisionCheckRect.getY());
+            axisCheckRect.setHeight(collisionCheckRect.getHeight());
+            axisCheckRect.setWidth(collisionCheckRect.getWidth());
+
+            if(!renderer.getMap().checkCollision(axisCheckRect)){
+                sprite.setY(collisionCheckRect.getY()-yCollisionOffset);
+            }
+            didMove=false;
         }
     }
 
@@ -112,6 +149,9 @@ public class Player implements GameObject {
         return sprite;
     }
 
+    public int getDirection(){
+        return direction;
+    }
 
 
 

@@ -39,31 +39,33 @@ public class Map {
         int currentX=rect.getX();
         int currentY=rect.getY();
 
+
         int blockXoffset= (currentX-48)%48;
         int blockX = currentX-48-blockXoffset;
-
-
         int blockYoffset= (currentY-48)%48;
         int blockY = currentY-48-blockYoffset;
+        int maxBlockX=blockX+48*2;
+        int maxBlockY=blockY+48*2;
 
-        Tile tile= getTile(blockX,blockY);
-
-        if(tile!=null) {
-            System.out.println(tile.getSprite().getX() + " " + tile.getSprite().getY());
-            System.out.println(currentX + " " + currentY);
-            if (tile.isCollision()) {
-                if (blockX + 48 > currentX + 1 ) {
-                    return true;
+        for(int x=blockX; x<=maxBlockX; x+=48){
+            for(int y=blockY; y<=maxBlockY; y+=48){
+                if(x!=currentX-blockXoffset && y!=currentY-blockYoffset){
+                    Tile tile= getTile(x,y);
+                    if(tile!=null) {
+                        if (tile.getSprite().intersects(rect)) {
+                            System.out.println(rect.getX()+" "+rect.getY());
+                            return true;
+                        }
+                    }
                 }
-                /*
-                if (blockX + 48 == currentX + 1 && blockY + 48 == currentY + 1) {
-                    return true;
-                }
-                 */
             }
         }
         return false;
 
+    }
+
+    public ArrayList getMappedTiles(){
+        return map;
     }
 
     public void render(Graphics g){

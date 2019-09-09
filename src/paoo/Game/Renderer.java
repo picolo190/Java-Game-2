@@ -96,16 +96,16 @@ public class Renderer extends JPanel {
                 }
                 if(e.getKeyCode()==KeyEvent.VK_SPACE){
                     //direction: 0->right; 1->left; 2->down; 3->up
-                    if(player.getMovingDown()){
+                    if(player.getDirection()==2){
                         addObject(new Bullet(player.getSprite().getX(),player.getSprite().getY(),ImageLoader.getInstance().getRockDown(), 6, 2));
                     }
-                    if(player.getMovingRight()){
+                    if(player.getDirection()==1){
                         addObject(new Bullet(player.getSprite().getX(),player.getSprite().getY(),ImageLoader.getInstance().getRockRight(), 6, 0));
                     }
-                    if(player.getMovingLeft()){
+                    if(player.getDirection()==3){
                         addObject(new Bullet(player.getSprite().getX(),player.getSprite().getY(),ImageLoader.getInstance().getRockLeft(), 6, 1));
                     }
-                    if(player.getMovingUp()){
+                    if(player.getDirection()==0){
                         addObject(new Bullet(player.getSprite().getX(),player.getSprite().getY(),ImageLoader.getInstance().getRockUp(), 6, 3));
                     }
                 }

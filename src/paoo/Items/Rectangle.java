@@ -9,6 +9,14 @@ public class Rectangle {
     private BufferedImage sprite;
     private int x,y, width, height;
 
+    public Rectangle(int x, int y, int w, int h){
+        this.x=x;
+        this.y=y;
+        width=w;
+        height=h;
+        sprite=null;
+    }
+
     public Rectangle(int x, int y, BufferedImage sprite){
         this.x = x;
         this.y=y;
@@ -25,6 +33,14 @@ public class Rectangle {
         return height;
     }
 
+    public void setWidth(int w){
+        width=w;
+    }
+
+    public void setHeight(int h){
+        height=h;
+    }
+
     public void updateX(int xx){
         x+=xx;
     }
@@ -39,9 +55,9 @@ public class Rectangle {
      * @return= the method returns true or false, if there is a collision within those rectangles
      */
     public boolean intersects(Rectangle anotherRec){
-        if(x > anotherRec.getX() + anotherRec.getSprite().getWidth(null) || anotherRec.getX() > x + width)
+        if(x > anotherRec.getX() + anotherRec.getWidth() || anotherRec.getX() > x + width)
             return false;
-        if(y > anotherRec.getY() + anotherRec.getSprite().getHeight(null) || anotherRec.getY() > y + height)
+        if(y > anotherRec.getY() + anotherRec.getHeight() || anotherRec.getY() > y + height)
             return false;
         return true;
     }
@@ -58,5 +74,13 @@ public class Rectangle {
 
     public int getY(){
         return y;
+    }
+
+    public void setX(int x){
+        this.x=x;
+    }
+
+    public void setY(int y){
+        this.y=y;
     }
 }
