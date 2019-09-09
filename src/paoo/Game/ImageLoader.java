@@ -1,7 +1,10 @@
 package paoo.Game;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
 
 /**
@@ -9,21 +12,21 @@ import java.awt.*;
  * using this method, we avoid loading the same images every time we update the panel
  */
 public class ImageLoader {
-    private final Image water;
-    private final Image grass;
-    private final Image monsterLeft;
-    private final Image monsterRight;
-    private final Image mountain;
-    private final Image rockDown;
-    private final Image rockLeft;
-    private final Image rockRight;
-    private final Image rockUp;
-    private final Image soil;
-    private final Image townGrass;
-    private final Image townGrassDestroyed;
-    private final Image townSoil;
-    private final Image monsterUp;
-    private final Image tree;
+    private final BufferedImage water;
+    private final BufferedImage grass;
+    private final BufferedImage monsterLeft;
+    private final BufferedImage monsterRight;
+    private final BufferedImage mountain;
+    private final BufferedImage rockDown;
+    private final BufferedImage rockLeft;
+    private final BufferedImage rockRight;
+    private final BufferedImage rockUp;
+    private final BufferedImage soil;
+    private final BufferedImage townGrass;
+    private final BufferedImage townGrassDestroyed;
+    private final BufferedImage townSoil;
+    private final BufferedImage monsterUp;
+    private final BufferedImage tree;
     private static ImageLoader instance=null;
 
     public static ImageLoader getInstance(){
@@ -57,28 +60,38 @@ public class ImageLoader {
         this.monsterUp=loadImage("images/monsterUp.png");
     }
 
-    public Image loadImage(String imageAddress) {
-        ImageIcon icon = new ImageIcon(imageAddress);
-        return icon.getImage();
+    public BufferedImage loadImage(String imageAddress) {
+        try {
+            BufferedImage icon = ImageIO.read(new File(imageAddress));
+            BufferedImage formattedIcon = new BufferedImage(icon.getWidth(), icon.getHeight(), BufferedImage.TYPE_INT_ARGB);
+            formattedIcon.getGraphics().drawImage(icon, 0,0,null);
+            return formattedIcon;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
     }
+
 
     /**
      * getter functions so we can get whatever image we need
      */
-    public Image getWater(){ return water;}
-    public Image getGrass(){ return grass;}
-    public Image getMonsterLeft(){ return monsterLeft;}
-    public Image getMonsterRight(){ return monsterRight;}
-    public Image getMountain(){ return mountain;}
-    public Image getRockDown(){ return rockDown;}
-    public Image getRockLeft(){ return rockLeft;}
-    public Image getRockRight(){ return rockRight;}
-    public Image getRockUp(){ return rockUp;}
-    public Image getSoil(){ return soil;}
-    public Image getGRass(){ return townGrass;}
-    public Image getGrassDestryed(){ return townGrassDestroyed;}
-    public Image getMonsterUp(){return monsterUp;}
-    public Image getTownSoil(){ return townSoil;}
-    public Image getTree(){ return tree;}
+    public BufferedImage getWater(){ return water;}
+    public BufferedImage getGrass(){ return grass;}
+    public BufferedImage getMonsterLeft(){ return monsterLeft;}
+    public BufferedImage getMonsterRight(){ return monsterRight;}
+    public BufferedImage getMountain(){ return mountain;}
+    public BufferedImage getRockDown(){ return rockDown;}
+    public BufferedImage getRockLeft(){ return rockLeft;}
+    public BufferedImage getRockRight(){ return rockRight;}
+    public BufferedImage getRockUp(){ return rockUp;}
+    public BufferedImage getSoil(){ return soil;}
+    public BufferedImage getGRass(){ return townGrass;}
+    public BufferedImage getGrassDestryed(){ return townGrassDestroyed;}
+    public BufferedImage getMonsterUp(){return monsterUp;}
+    public BufferedImage getTownSoil(){ return townSoil;}
+    public BufferedImage getTree(){ return tree;}
 
 }

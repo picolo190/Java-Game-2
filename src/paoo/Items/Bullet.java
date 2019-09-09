@@ -1,6 +1,10 @@
 package paoo.Items;
 
+import paoo.Game.Renderer;
+
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 
 public class Bullet implements GameObject {
 
@@ -8,14 +12,14 @@ public class Bullet implements GameObject {
     private Rectangle sprite;
     private int direction;
 
-    public Bullet(int x, int y, Image sprite, int speed, int direction) {
+    public Bullet(int x, int y, BufferedImage sprite, int speed, int direction) {
         this.sprite=new Rectangle(x,y,sprite);
         this.speed=speed;
         this.direction=direction;
     }
 
     @Override
-    public void render(){
+    public void render(Graphics g){
 
     }
 

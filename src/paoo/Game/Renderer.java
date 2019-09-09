@@ -1,16 +1,21 @@
 package paoo.Game;
 
 import paoo.Items.GameObject;
+import paoo.Items.Player;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
-public class Renderer extends JFrame {
-    private JPanel gamePanel;
+public class Renderer extends JPanel {
+
+
+    private Player player;
+    private Map map;
 
     /**
      * Defining the resolution of the app
@@ -26,40 +31,16 @@ public class Renderer extends JFrame {
 
 
     public Renderer(){
-        //initialise the jpanel
-        gamePanel = new javax.swing.JPanel();
-
-        //this tells the game to close when the close button of the window is pressed; it can be called a handler
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        //set the window title to "Game"
-        setTitle("Game");
+        super();
+        map= new Map();
+        player=new Player(100,100,10,4);
 
         //set the size of the window
-        setPreferredSize(new java.awt.Dimension(WIDTH, HEIGHT));
-
-        //the panel is resizeable so the minimum size must be set
-        gamePanel.setMinimumSize(new java.awt.Dimension(WIDTH, HEIGHT));
-
-        //also the set the size of the panel; the panel is part of the window
-        gamePanel.setSize(new java.awt.Dimension(WIDTH, HEIGHT));
-        gamePanel.setLayout(new java.awt.GridLayout(1, 0));
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(gamePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(gamePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        pack();
-
-        requestFocusInWindow();
-        setLocationRelativeTo(null);
+        setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        setLayout(null);
         setVisible(true);
+
+
 
         /**
          * Adding the keyboard listener on the jpanel so we can handle the keys pressed
@@ -72,44 +53,59 @@ public class Renderer extends JFrame {
 
             @Override
             public void keyPressed(KeyEvent e) {
-
+                if(e.getKeyCode()==KeyEvent.VK_S){
+                    player.setMovingDown(true);
+                }
+                if(e.getKeyCode()==KeyEvent.VK_A){
+                    player.setMovingLeft(true);
+                }
+                if(e.getKeyCode()==KeyEvent.VK_D){
+                    player.setMovingRight(true);
+                }
+                if(e.getKeyCode()==KeyEvent.VK_W){
+                    player.setMovingUp(true);
+                }
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
-
+                if(e.getKeyCode()==KeyEvent.VK_S){
+                    player.setMovingDown(false);
+                }
+                if(e.getKeyCode()==KeyEvent.VK_A){
+                    player.setMovingLeft(false);
+                }
+                if(e.getKeyCode()==KeyEvent.VK_D){
+                    player.setMovingRight(false);
+                }
+                if(e.getKeyCode()==KeyEvent.VK_W){
+                    player.setMovingUp(false);
+                }
             }
         });
 
-        /**
-         * Adding the mouse listener on the jpanel so we can handle the mouse events
-         */
-        addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                System.out.println("Mouse clicked on the x:"+e.getX()+" y:"+e.getY());
-            }
 
-            @Override
-            public void mousePressed(MouseEvent e) {
-                //code to be executed when mouse button is pressed
-            }
 
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                //code to be executed when mouse button is released
-            }
 
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                //code to be executed when mouse pointer enters the panel
-            }
+    }
 
-            @Override
-            public void mouseExited(MouseEvent e) {
-                //code to be executed when the mouse pointer leaves the panel
-            }
-        });
+
+    @Override
+    public Dimension getPreferredSize(){
+        if(isPreferredSizeSet()){
+            return super.getPreferredSize();
+        }
+        return new Dimension(WIDTH,HEIGHT);
+    }
+
+    @Override
+    public void paintComponent(Graphics g){
+
+        map.render(g);
+        player.render(g);
+        for(int index=0;index<gameObjects.size();++index){
+            gameObjects.get(index).render(g);
+        }
     }
 
 
@@ -121,29 +117,20 @@ public class Renderer extends JFrame {
         gameObjects.add(object);
     }
 
-    /**
-     * This method iterates all the game objects and renders it on the screen
-     */
-    public void render(){
-        for(int index=0;index<gameObjects.size();++index){
-            gameObjects.get(index).render();
-        }
+
+    public Map getMap(){
+        return map;
     }
+
 
     /**
      * The update method iterates all the game objects and updates it based on its behaviour
      */
     public void update(){
+        player.update();
         for(int index=0;index<gameObjects.size();++index){
             gameObjects.get(index).update();
         }
     }
 
-    /**
-     * This is a getter method for the game panel
-     * @return the game panel
-     */
-    public JPanel getGamePanel(){
-        return gamePanel;
-    }
 }

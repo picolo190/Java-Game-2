@@ -2,6 +2,9 @@ package paoo.Items;
 
 import paoo.Game.ImageLoader;
 import paoo.Game.Map;
+import paoo.Game.Renderer;
+
+import java.awt.*;
 
 public class Rock implements GameObject {
     private int speed;
@@ -20,7 +23,7 @@ public class Rock implements GameObject {
     }
 
     @Override
-    public void render(){
+    public void render(Graphics g){
 
     }
 

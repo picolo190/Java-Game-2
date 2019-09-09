@@ -1,15 +1,16 @@
 package paoo.Items;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /**
- * The Rectangle method defines the game objects appearance: the actual sprite(Image) and the x, y positions on the jpanel
+ * The Rectangle method defines the game objects appearance: the actual sprite(BufferedImage) and the x, y positions on the jpanel
  */
 public class Rectangle {
-    private Image sprite;
+    private BufferedImage sprite;
     private int x,y, width, height;
 
-    public Rectangle(int x, int y, Image sprite){
+    public Rectangle(int x, int y, BufferedImage sprite){
         this.x = x;
         this.y=y;
         this.sprite=sprite;
@@ -38,7 +39,7 @@ public class Rectangle {
         return true;
     }
 
-    public Image getSprite(){
+    public BufferedImage getSprite(){
         return sprite;
     }
 

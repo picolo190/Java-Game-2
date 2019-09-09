@@ -1,5 +1,9 @@
 package paoo.Items;
 import paoo.Game.ImageLoader;
+import paoo.Game.Renderer;
+
+import java.awt.*;
+import java.awt.event.KeyEvent;
 
 /**
  * Monster Class
@@ -23,7 +27,7 @@ public class Monster implements GameObject {
     }
 
     @Override
-    public void render(){
+    public void render(Graphics g){
 
     }
 }
