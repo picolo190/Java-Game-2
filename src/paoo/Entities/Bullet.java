@@ -1,5 +1,5 @@
-package paoo.Items;
-import paoo.Game.Renderer;
+package paoo.Entities;
+import paoo.System.Renderer;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 

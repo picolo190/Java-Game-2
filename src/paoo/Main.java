@@ -1,7 +1,7 @@
 package paoo;
 
 
-import paoo.Game.Renderer;
+import paoo.System.Renderer;
 
 import javax.swing.*;
 import java.awt.*;

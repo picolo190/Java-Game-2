@@ -1,8 +1,9 @@
-package paoo.Game;
+package paoo.System;
 
-import paoo.Items.Bullet;
-import paoo.Items.GameObject;
-import paoo.Items.Player;
+import paoo.Entities.Bullet;
+import paoo.Entities.GameObject;
+import paoo.Entities.Player;
+import paoo.Map.Map;
 
 import javax.swing.*;
 import java.awt.*;

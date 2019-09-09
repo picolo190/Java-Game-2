@@ -1,8 +1,6 @@
-package paoo.Game;
+package paoo.System;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -22,9 +20,8 @@ public class ImageLoader {
     private final BufferedImage rockRight;
     private final BufferedImage rockUp;
     private final BufferedImage soil;
-    private final BufferedImage townGrass;
+    private final BufferedImage town;
     private final BufferedImage townGrassDestroyed;
-    private final BufferedImage townSoil;
     private final BufferedImage monsterUp;
     private final BufferedImage tree;
     private static ImageLoader instance=null;
@@ -53,9 +50,8 @@ public class ImageLoader {
         this.rockRight = loadImage("images/rockRight.png");
         this.rockUp = loadImage("images/rockUp.png");
         this.soil = loadImage("images/soil.png");
-        this.townGrass = loadImage("images/townGrass.png");
+        this.town = loadImage("images/townGrass.png");
         this.townGrassDestroyed = loadImage("images/townGrassDestroyed.png");
-        this.townSoil = loadImage("images/townSoil.png");
         this.tree = loadImage("images/tree.png");
         this.monsterUp=loadImage("images/monsterUp.png");
     }
@@ -88,10 +84,9 @@ public class ImageLoader {
     public BufferedImage getRockRight(){ return rockRight;}
     public BufferedImage getRockUp(){ return rockUp;}
     public BufferedImage getSoil(){ return soil;}
-    public BufferedImage getGRass(){ return townGrass;}
-    public BufferedImage getGrassDestryed(){ return townGrassDestroyed;}
+    public BufferedImage getTown(){ return town;}
+    public BufferedImage getTownGrassDestroyed(){ return townGrassDestroyed;}
     public BufferedImage getMonsterUp(){return monsterUp;}
-    public BufferedImage getTownSoil(){ return townSoil;}
     public BufferedImage getTree(){ return tree;}
 
 }

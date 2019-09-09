@@ -1,6 +1,8 @@
-package paoo.Game;
+package paoo.Map;
 
-import paoo.Items.Rectangle;
+import paoo.Entities.Rectangle;
+import paoo.System.ImageLoader;
+import paoo.System.Renderer;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -15,7 +17,7 @@ public class Map {
     private ArrayList<Tile> map= new ArrayList<>();
 
     public Map(){
-        for(int x=0; x<Renderer.WIDTH/48; ++x) {
+        for(int x = 0; x< Renderer.WIDTH/48; ++x) {
             map.add(new Tile(x*48, 0, 1, true));
             map.add(new Tile(x*48, (Renderer.HEIGHT/48-1)*48, 1, true));
         }
@@ -24,6 +26,7 @@ public class Map {
             map.add(new Tile((Renderer.WIDTH/48-1)*48, y*48, 1, true));
         }
         map.add(new Tile(48*10, 48*10, 2, true));
+        map.add(new Tile(48*11, 48*10, 3,true));
     }
 
     public Tile getTile(int x, int y){
@@ -68,7 +71,7 @@ public class Map {
 
     public void render(Graphics g){
 
-        for(int x=0;x<(Renderer.WIDTH/48)*48 ;x+=ImageLoader.getInstance().getGrass().getWidth(null)){
+        for(int x=0;x<(Renderer.WIDTH/48)*48 ;x+= ImageLoader.getInstance().getGrass().getWidth(null)){
             for(int y=0;y<(Renderer.HEIGHT/48)*48 ;y+=ImageLoader.getInstance().getGrass().getHeight(null)){
                 g.drawImage(ImageLoader.getInstance().getGrass(), x, y, null);
             }

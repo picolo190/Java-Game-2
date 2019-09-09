@@ -1,6 +1,7 @@
-package paoo.Game;
+package paoo.Map;
 
-import paoo.Items.Rectangle;
+import paoo.Entities.Rectangle;
+import paoo.System.ImageLoader;
 
 public class Tile {
     private int id;
@@ -12,7 +13,7 @@ public class Tile {
     public Tile(int x, int y, int id, boolean collision){
         switch (id){
             case 0:
-                sprite=new Rectangle(x,y,ImageLoader.getInstance().getSoil());
+                sprite=new Rectangle(x,y, ImageLoader.getInstance().getSoil());
                 break;
             case 1:
                 sprite=new Rectangle(x,y,ImageLoader.getInstance().getMountain());
@@ -21,7 +22,7 @@ public class Tile {
                 sprite= new Rectangle(x,y,ImageLoader.getInstance().getWater());
                 break;
             case 3:
-                sprite= new Rectangle(x,y, ImageLoader.getInstance().getTownSoil());
+                sprite= new Rectangle(x,y, ImageLoader.getInstance().getTown());
                 break;
             default:
                 sprite= new Rectangle(x,y,ImageLoader.getInstance().getGrass());

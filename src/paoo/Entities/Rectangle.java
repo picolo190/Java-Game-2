@@ -1,4 +1,4 @@
-package paoo.Items;
+package paoo.Entities;
 
 import java.awt.image.BufferedImage;
 

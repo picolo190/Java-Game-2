@@ -1,9 +1,6 @@
-package paoo.Items;
+package paoo.Entities;
 
-
-
-import paoo.Game.Renderer;
-
+import paoo.System.Renderer;
 import java.awt.*;
 
 
