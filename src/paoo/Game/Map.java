@@ -23,7 +23,7 @@ public class Map {
             map.add(new Tile(0, y*48, 1, true));
             map.add(new Tile((Renderer.WIDTH/48-1)*48, y*48, 1, true));
         }
-
+        map.add(new Tile(48*10, 48*10, 2, true));
     }
 
     public Tile getTile(int x, int y){
@@ -49,13 +49,11 @@ public class Map {
 
         for(int x=blockX; x<=maxBlockX; x+=48){
             for(int y=blockY; y<=maxBlockY; y+=48){
-                if(x!=currentX-blockXoffset && y!=currentY-blockYoffset){
-                    Tile tile= getTile(x,y);
-                    if(tile!=null) {
-                        if (tile.getSprite().intersects(rect)) {
-                            System.out.println(rect.getX()+" "+rect.getY());
-                            return true;
-                        }
+                Tile tile= getTile(x,y);
+                if(tile!=null) {
+                    if (tile.getSprite().intersects(rect)) {
+                        System.out.println(rect.getX()+" "+rect.getY());
+                        return true;
                     }
                 }
             }
