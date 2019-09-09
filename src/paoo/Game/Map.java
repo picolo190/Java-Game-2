@@ -1,41 +1,82 @@
 package paoo.Game;
 
+import paoo.Items.Rectangle;
+
 import java.awt.*;
 import java.util.ArrayList;
 
 /**
  * The map class represents the map
  * it has 25x19 ints and every block is represented by a number from 0 to 5
- * 0-grass 1-mountain
+ * 0-soil; 1- mountain; 2-water; 3-castle
  */
 public class Map {
 
     private ArrayList<Tile> map= new ArrayList<>();
-    private boolean renderedMap=false;
 
     public Map(){
-        map.add(new Tile(0,0,1, true));
+        for(int x=0; x<Renderer.WIDTH/48; ++x) {
+            map.add(new Tile(x*48, 0, 1, true));
+            map.add(new Tile(x*48, (Renderer.HEIGHT/48-1)*48, 1, true));
+        }
+        for(int y=1; y<Renderer.HEIGHT/48; ++y) {
+            map.add(new Tile(0, y*48, 1, true));
+            map.add(new Tile((Renderer.WIDTH/48-1)*48, y*48, 1, true));
+        }
+
+    }
+
+    public Tile getTile(int x, int y){
+        for(Tile tile: map){
+            if(tile.getSprite().getX()==x && tile.getSprite().getY()==y){
+                return tile;
+            }
+        }
+        return null;
+    }
+
+    public boolean checkCollision(Rectangle rect){
+        int currentX=rect.getX();
+        int currentY=rect.getY();
+
+        int blockXoffset= (currentX-48)%48;
+        int blockX = currentX-48-blockXoffset;
+
+
+        int blockYoffset= (currentY-48)%48;
+        int blockY = currentY-48-blockYoffset;
+
+        Tile tile= getTile(blockX,blockY);
+
+        if(tile!=null) {
+            System.out.println(tile.getSprite().getX() + " " + tile.getSprite().getY());
+            System.out.println(currentX + " " + currentY);
+            if (tile.isCollision()) {
+                if (blockX + 48 > currentX + 1 ) {
+                    return true;
+                }
+                /*
+                if (blockX + 48 == currentX + 1 && blockY + 48 == currentY + 1) {
+                    return true;
+                }
+                 */
+            }
+        }
+        return false;
+
     }
 
     public void render(Graphics g){
-        //Graphics graphics= renderer.getGraphics();
-        for(int x=0;x<=Renderer.WIDTH;x+=ImageLoader.getInstance().getGrass().getWidth(null)){
-            for(int y=0;y<=Renderer.HEIGHT; y+=ImageLoader.getInstance().getGrass().getHeight(null)){
+
+        for(int x=0;x<(Renderer.WIDTH/48)*48 ;x+=ImageLoader.getInstance().getGrass().getWidth(null)){
+            for(int y=0;y<(Renderer.HEIGHT/48)*48 ;y+=ImageLoader.getInstance().getGrass().getHeight(null)){
                 g.drawImage(ImageLoader.getInstance().getGrass(), x, y, null);
             }
         }
         for(int i=0; i<map.size();++i){
-            switch (map.get(i).getId()){
-                case 1:
-                    g.drawImage(ImageLoader.getInstance().getSoil(), map.get(i).getX(), map.get(i).getY(), null);
-            }
+            Rectangle tempRect=map.get(i).getBlock();
+            g.drawImage(tempRect.getSprite(), tempRect.getX(), tempRect.getY(), null);
         }
-        renderedMap=true;
     }
-
-    public boolean checkRender(){
-        return renderedMap;
-    }
-
 
 }

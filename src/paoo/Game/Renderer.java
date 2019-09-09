@@ -1,5 +1,6 @@
 package paoo.Game;
 
+import paoo.Items.Bullet;
 import paoo.Items.GameObject;
 import paoo.Items.Player;
 
@@ -40,7 +41,35 @@ public class Renderer extends JPanel {
         setLayout(null);
         setVisible(true);
 
+        /**
+         * Adding the mouse listener on the JPanel so we can handle the mouse events
+         */
+        addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.out.println("mouse (x,y) coordinates: "+e.getX()+" "+e.getY());
+            }
 
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
 
         /**
          * Adding the keyboard listener on the jpanel so we can handle the keys pressed
@@ -65,6 +94,21 @@ public class Renderer extends JPanel {
                 if(e.getKeyCode()==KeyEvent.VK_W || e.getKeyCode()==KeyEvent.VK_UP){
                     player.setMovingUp(true);
                 }
+                if(e.getKeyCode()==KeyEvent.VK_SPACE){
+                    //direction: 0->right; 1->left; 2->down; 3->up
+                    if(player.getMovingDown()){
+                        addObject(new Bullet(player.getSprite().getX(),player.getSprite().getY(),ImageLoader.getInstance().getRockDown(), 6, 2));
+                    }
+                    if(player.getMovingRight()){
+                        addObject(new Bullet(player.getSprite().getX(),player.getSprite().getY(),ImageLoader.getInstance().getRockRight(), 6, 0));
+                    }
+                    if(player.getMovingLeft()){
+                        addObject(new Bullet(player.getSprite().getX(),player.getSprite().getY(),ImageLoader.getInstance().getRockLeft(), 6, 1));
+                    }
+                    if(player.getMovingUp()){
+                        addObject(new Bullet(player.getSprite().getX(),player.getSprite().getY(),ImageLoader.getInstance().getRockUp(), 6, 3));
+                    }
+                }
             }
 
             @Override
@@ -84,11 +128,7 @@ public class Renderer extends JPanel {
             }
         });
 
-
-
-
     }
-
 
     @Override
     public Dimension getPreferredSize(){
@@ -98,6 +138,10 @@ public class Renderer extends JPanel {
         return new Dimension(WIDTH,HEIGHT);
     }
 
+    /**
+     * Override the paintComponent method in the jpanel so it renders the way we want
+     * @param g the graphics component of the jpanel
+     */
     @Override
     public void paintComponent(Graphics g){
 
@@ -118,6 +162,10 @@ public class Renderer extends JPanel {
     }
 
 
+    /**
+     * Getter method for the map
+     * @return the map
+     */
     public Map getMap(){
         return map;
     }
@@ -129,7 +177,21 @@ public class Renderer extends JPanel {
     public void update(){
         player.update(this);
         for(int index=0;index<gameObjects.size();++index){
+
             gameObjects.get(index).update(this);
+
+            if(gameObjects.get(index) instanceof Bullet)
+            {
+                int currentX=((Bullet) gameObjects.get(index)).getSprite().getX();
+                int currentY=((Bullet) gameObjects.get(index)).getSprite().getY();
+                if(currentX>Renderer.WIDTH || currentX<0){
+                    gameObjects.remove(gameObjects.get(index));
+                }
+                if(currentY>Renderer.HEIGHT || currentY<0){
+                    gameObjects.remove(gameObjects.get(index));
+                }
+            }
+
         }
     }
 

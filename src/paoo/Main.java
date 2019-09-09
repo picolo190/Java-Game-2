@@ -12,7 +12,6 @@ public class Main {
     public static void main(String[] args){
         JFrame window = new JFrame();
 
-
         //this tells the game to close when the close button of the window is pressed; it can be called a handler
         window.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         window.setTitle("Game");
@@ -20,7 +19,7 @@ public class Main {
         window.pack();
         window.setLocationRelativeTo(null);
         window.setVisible(true);
-        window.setResizable(false);
+        window.setResizable(true);
 
         //Creating the JPanel on which we draw
 	    Renderer renderer = new Renderer();

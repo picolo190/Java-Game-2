@@ -2,10 +2,7 @@ package paoo.Items;
 
 import paoo.Game.ImageLoader;
 import paoo.Game.Renderer;
-
 import java.awt.*;
-import java.awt.event.KeyEvent;
-
 
 /**
  * The player class which defines the Player looks and behaviours
@@ -53,11 +50,14 @@ public class Player implements GameObject {
         if(movingDown){
             sprite.updateY(speed);
         }
-        if(movingLeft){
-            sprite.updateX(speed*(-1));
+        if(!renderer.getMap().checkCollision(sprite)) {
+            if (movingLeft) {
+                sprite.updateX(speed * (-1));
+            }
         }
-        if(movingUp){
-            sprite.updateY(speed*(-1));
+
+        if (movingUp) {
+                sprite.updateY(speed * (-1));
         }
         if(movingRight){
             sprite.updateX(speed);
@@ -66,20 +66,55 @@ public class Player implements GameObject {
 
     public void setMovingUp(boolean moving){
         movingUp=moving;
+        if(moving){
+            sprite.setSprite(ImageLoader.getInstance().getMonsterUp());
+        }
     }
-
 
     public void setMovingDown(boolean moving){
         movingDown = moving;
+        if(moving){
+            sprite.setSprite(ImageLoader.getInstance().getMonsterRight());
+        }
     }
 
     public void setMovingLeft(boolean moving){
         movingLeft=moving;
+        if(moving){
+            sprite.setSprite(ImageLoader.getInstance().getMonsterLeft());
+        }
     }
 
     public void setMovingRight(boolean moving){
         movingRight=moving;
+        if(moving){
+            sprite.setSprite(ImageLoader.getInstance().getMonsterRight());
+        }
     }
+
+    public boolean getMovingUp(){
+        return movingUp;
+    }
+
+    public boolean getMovingRight(){
+        return movingRight;
+    }
+
+    public boolean getMovingLeft(){
+        return movingLeft;
+    }
+
+    public boolean getMovingDown(){
+        return movingDown;
+    }
+
+    public Rectangle getSprite(){
+        return sprite;
+    }
+
+
+
+
     /**
      * This method renders the player sprite based on its image and x, y position
      */

@@ -16,8 +16,13 @@ public class Bullet implements GameObject {
         this.direction=direction;
     }
 
+    public Rectangle getSprite(){
+        return sprite;
+    }
+
     @Override
     public void render(Graphics g){
+
         g.drawImage(sprite.getSprite(), sprite.getX(), sprite.getY(), null);
     }
 

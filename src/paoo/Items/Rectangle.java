@@ -1,6 +1,5 @@
 package paoo.Items;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
@@ -16,6 +15,14 @@ public class Rectangle {
         this.sprite=sprite;
         width=sprite.getWidth(null);
         height=sprite.getHeight(null);
+    }
+
+    public int getWidth(){
+        return width;
+    }
+
+    public int getHeight(){
+        return height;
     }
 
     public void updateX(int xx){
@@ -38,6 +45,8 @@ public class Rectangle {
             return false;
         return true;
     }
+
+    public void setSprite(BufferedImage image){sprite=image;}
 
     public BufferedImage getSprite(){
         return sprite;
