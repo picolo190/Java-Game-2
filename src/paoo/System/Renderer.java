@@ -176,11 +176,14 @@ public class Renderer extends JPanel {
      * The update method iterates all the game objects and updates it based on its behaviour
      */
     public void update(){
+
         player.update(this);
+
         for(int index=0;index<gameObjects.size();++index){
 
             gameObjects.get(index).update(this);
 
+            //Clearing the bullets which went out of the panel
             if(gameObjects.get(index) instanceof Bullet)
             {
                 int currentX=((Bullet) gameObjects.get(index)).getSprite().getX();

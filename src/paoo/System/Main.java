@@ -1,4 +1,4 @@
-package paoo;
+package paoo.System;
 
 
 import paoo.System.Renderer;

@@ -14,7 +14,6 @@ public class Player implements GameObject {
     private int speed;
     //0-up, 1-right, 2-down, 3-left
     private int direction;
-    private boolean didMove=false;
     private boolean movingUp=false, movingDown=false, movingRight=false, movingLeft=false;
 
     public Player(int x, int y, int playerHealth, int speed){
@@ -97,7 +96,6 @@ public class Player implements GameObject {
             if(!renderer.getMap().checkCollision(axisCheckRect)){
                 sprite.setY(collisionCheckRect.getY()-yCollisionOffset);
             }
-            didMove=false;
         }
     }
 
