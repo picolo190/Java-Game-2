@@ -53,32 +53,32 @@ public class Renderer extends JPanel {
 
             @Override
             public void keyPressed(KeyEvent e) {
-                if(e.getKeyCode()==KeyEvent.VK_S){
+                if(e.getKeyCode()==KeyEvent.VK_S || e.getKeyCode()==KeyEvent.VK_DOWN ){
                     player.setMovingDown(true);
                 }
-                if(e.getKeyCode()==KeyEvent.VK_A){
+                if(e.getKeyCode()==KeyEvent.VK_A || e.getKeyCode()==KeyEvent.VK_LEFT ){
                     player.setMovingLeft(true);
                 }
-                if(e.getKeyCode()==KeyEvent.VK_D){
+                if(e.getKeyCode()==KeyEvent.VK_D || e.getKeyCode()==KeyEvent.VK_RIGHT){
                     player.setMovingRight(true);
                 }
-                if(e.getKeyCode()==KeyEvent.VK_W){
+                if(e.getKeyCode()==KeyEvent.VK_W || e.getKeyCode()==KeyEvent.VK_UP){
                     player.setMovingUp(true);
                 }
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
-                if(e.getKeyCode()==KeyEvent.VK_S){
+                if(e.getKeyCode()==KeyEvent.VK_S || e.getKeyCode()==KeyEvent.VK_DOWN){
                     player.setMovingDown(false);
                 }
-                if(e.getKeyCode()==KeyEvent.VK_A){
+                if(e.getKeyCode()==KeyEvent.VK_A || e.getKeyCode()==KeyEvent.VK_LEFT){
                     player.setMovingLeft(false);
                 }
-                if(e.getKeyCode()==KeyEvent.VK_D){
+                if(e.getKeyCode()==KeyEvent.VK_D || e.getKeyCode()==KeyEvent.VK_RIGHT){
                     player.setMovingRight(false);
                 }
-                if(e.getKeyCode()==KeyEvent.VK_W){
+                if(e.getKeyCode()==KeyEvent.VK_W || e.getKeyCode()==KeyEvent.VK_UP){
                     player.setMovingUp(false);
                 }
             }
@@ -127,9 +127,9 @@ public class Renderer extends JPanel {
      * The update method iterates all the game objects and updates it based on its behaviour
      */
     public void update(){
-        player.update();
+        player.update(this);
         for(int index=0;index<gameObjects.size();++index){
-            gameObjects.get(index).update();
+            gameObjects.get(index).update(this);
         }
     }
 

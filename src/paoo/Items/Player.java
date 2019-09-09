@@ -48,7 +48,7 @@ public class Player implements GameObject {
     }
 
     @Override
-    public void update(){
+    public void update(Renderer renderer){
 
         if(movingDown){
             sprite.updateY(speed);
@@ -86,6 +86,5 @@ public class Player implements GameObject {
     @Override
     public void render(Graphics g) {
         g.drawImage(sprite.getSprite(), sprite.getX(), sprite.getY(), null);
-
     }
 }

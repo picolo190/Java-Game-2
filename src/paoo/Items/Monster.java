@@ -3,8 +3,6 @@ import paoo.Game.ImageLoader;
 import paoo.Game.Renderer;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
-
 /**
  * Monster Class
  */
@@ -22,12 +20,12 @@ public class Monster implements GameObject {
 
 
     @Override
-    public void update(){
+    public void update(Renderer renderer){
         sprite.updateY(speed);
     }
 
     @Override
     public void render(Graphics g){
-
+        g.drawImage(sprite.getSprite(), sprite.getX(), sprite.getY(), null);
     }
 }
