@@ -12,6 +12,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Renderer extends JPanel {
 
@@ -23,7 +24,7 @@ public class Renderer extends JPanel {
      * Defining the resolution of the app
      * getting the height on a width/16*9 scale so it has the 16:9 ratio
      */
-    public static int WIDTH=1600;
+    public static int WIDTH=1400;
     public static int HEIGHT=WIDTH/16*9;
 
     /**
@@ -178,6 +179,9 @@ public class Renderer extends JPanel {
     public void update(){
 
         player.update(this);
+
+        Random r = new Random();
+        int x = r.nextInt();
 
         for(int index=0;index<gameObjects.size();++index){
 

@@ -35,6 +35,7 @@ public class Map {
         //Now we fill the map however we want
         map.add(new Tile(48*10, 48*10, 2, true));
         map.add(new Tile(48*11, 48*10, 3,true));
+
     }
 
     /**
