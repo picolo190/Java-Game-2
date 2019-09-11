@@ -42,5 +42,22 @@ public class Bullet implements GameObject {
                 sprite.updateY(speed*(-1));
                 break;
         }
+
+        for(int i=0; i<renderer.getObjects().size(); ++i){
+
+            //Clearing the bullets which went out of the panel
+            if(renderer.getObjects().get(i) instanceof Bullet)
+            {
+                int currentX=((Bullet) renderer.getObjects().get(i)).getSprite().getX();
+                int currentY=((Bullet) renderer.getObjects().get(i)).getSprite().getY();
+                if(currentX>Renderer.WIDTH || currentX<0){
+                    renderer.getObjects().remove(renderer.getObjects().get(i));
+                }
+                if(currentY>Renderer.HEIGHT || currentY<0){
+                    renderer.getObjects().remove(renderer.getObjects().get(i));
+                }
+            }
+
+        }
     }
 }
