@@ -81,7 +81,7 @@ public class Player implements GameObject {
         if(lastDirection != direction){
             direction=lastDirection;
         }
-        if(System.currentTimeMillis()-timeElapsed>=1000) {
+        if(System.currentTimeMillis()-timeElapsed>=300) {
             timeElapsed=System.currentTimeMillis();
             if (isShooting) {
                 //direction: 0->right; 1->left; 2->down; 3->up
