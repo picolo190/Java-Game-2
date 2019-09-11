@@ -11,11 +11,13 @@ public class Monster implements GameObject {
     private int speed;
     private Rectangle sprite;
     private int monsterHealth;
+    private long timeElapsed=0;
 
     public Monster(int x, int y, int speed, int health) {
         sprite=new Rectangle(x, y,ImageLoader.getInstance().getMonsterLeft());
         this.speed=speed;
         monsterHealth=health;
+        timeElapsed=System.currentTimeMillis();
     }
 
 
@@ -29,6 +31,26 @@ public class Monster implements GameObject {
 
     @Override
     public void update(Renderer renderer){
+        if(sprite.intersects(renderer.getPlayer().getSprite())){
+            if(System.currentTimeMillis()-timeElapsed>=1000) {
+                timeElapsed=System.currentTimeMillis();
+                renderer.getPlayer().setPlayerHealth(renderer.getPlayer().getPlayerHealth() - 1);
+            }
+        }
+
+        if(renderer.getPlayer().getSprite().getX()>sprite.getX()){
+            sprite.updateX(speed);
+        }
+        if(renderer.getPlayer().getSprite().getX()<sprite.getX()){
+            sprite.updateX(-speed);
+        }
+        if(renderer.getPlayer().getSprite().getY()>sprite.getY()){
+            sprite.updateY(speed);
+        }
+        if(renderer.getPlayer().getSprite().getY()<sprite.getY()){
+            sprite.updateY(-speed);
+        }
+
         for(int i=0; i<renderer.getObjects().size();++i){
             if(renderer.getObjects().get(i) instanceof Monster){
                 if(((Monster) renderer.getObjects().get(i)).getMonsterHealth()==0){

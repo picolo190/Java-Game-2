@@ -12,9 +12,11 @@ public class Player implements GameObject {
     private Rectangle sprite;
     private int playerHealth;
     private int speed;
-    private int timeElapsed;
+    private long timeElapsed;
+
     //0-up, 1-right, 2-down, 3-left
     private int direction;
+
     private boolean movingUp=false, movingDown=false, movingRight=false, movingLeft=false, isShooting=false;
 
     public Player(int x, int y, int playerHealth, int speed){
@@ -22,7 +24,7 @@ public class Player implements GameObject {
         direction=3;
         this.playerHealth=playerHealth;
         this.speed=speed;
-        timeElapsed=40;
+        timeElapsed=System.currentTimeMillis();
     }
 
     /**
@@ -52,7 +54,6 @@ public class Player implements GameObject {
     @Override
     public void update(Renderer renderer){
 
-        timeElapsed++;
         int xCollisionOffset=5;
         int yCollisionOffset=5;
 
@@ -80,8 +81,8 @@ public class Player implements GameObject {
         if(lastDirection != direction){
             direction=lastDirection;
         }
-        if(timeElapsed>=10) {
-            timeElapsed=0;
+        if(System.currentTimeMillis()-timeElapsed>=1000) {
+            timeElapsed=System.currentTimeMillis();
             if (isShooting) {
                 //direction: 0->right; 1->left; 2->down; 3->up
                 if (direction == 2) {
@@ -100,6 +101,7 @@ public class Player implements GameObject {
         }
 
         if(movingRight || movingLeft || movingDown ||movingUp){
+
             collisionCheckRect.setX(collisionCheckRect.getX()+xCollisionOffset);
             collisionCheckRect.setY(collisionCheckRect.getY()+yCollisionOffset);
 

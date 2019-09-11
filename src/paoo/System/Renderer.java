@@ -45,8 +45,13 @@ public class Renderer extends JPanel {
         setLayout(null);
         setVisible(true);
 
-        timeElapsed=System.currentTimeMillis();
+        //JLabel for health
+        JLabel playerHealth = new JLabel();
+        playerHealth.setText(player.getPlayerHealth()+"");
+        playerHealth.setVisible(true);
+        add(playerHealth);
 
+        timeElapsed=System.currentTimeMillis();
 
         /**
          * Adding the mouse listener on the JPanel so we can handle the mouse events
@@ -79,7 +84,7 @@ public class Renderer extends JPanel {
         });
 
         /**
-         * Adding the keyboard listener on the jpanel so we can handle the keys pressed
+         * Adding the keyboard listener on the JPanel so we can handle the keys pressed
          */
         addKeyListener(new KeyListener() {
             @Override
@@ -137,7 +142,7 @@ public class Renderer extends JPanel {
     }
 
     /**
-     * Override the paintComponent method in the jpanel so it renders the way we want
+     * Override the paintComponent method in the JPanel so it renders the way we want
      * @param g the graphics component of the jpanel
      */
     @Override
@@ -177,24 +182,32 @@ public class Renderer extends JPanel {
      */
     public void update(){
 
+        System.out.println(gameObjects.size());
+        player.update(this);
+        System.out.println(player.getPlayerHealth());
+
         Random r = new Random();
         int xMonster = r.nextInt(Renderer.WIDTH-48*3);
         xMonster+=60;
         int yMonster = r.nextInt(Renderer.HEIGHT-48*3);
         yMonster+=60;
 
-        //Spawn monster on a 1.5 sec delay
-         if(System.currentTimeMillis()-timeElapsed>=1500){
+        //Spawn monster on a 3 sec delay
+         if(System.currentTimeMillis()-timeElapsed>=3000){
              timeElapsed=System.currentTimeMillis();
-             Monster spawnMonster=new Monster(xMonster,yMonster,5,5);
+             Monster spawnMonster=new Monster(xMonster,yMonster,3,3);
              if(!map.checkCollision(spawnMonster.getSprite())){
                  addObject(spawnMonster);
              }
          }
-        player.update(this);
+
         for(int index=0;index<gameObjects.size();++index){
             gameObjects.get(index).update(this);
         }
+    }
+
+    public Player getPlayer(){
+        return player;
     }
 
 }
