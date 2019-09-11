@@ -19,9 +19,33 @@ public class Monster implements GameObject {
     }
 
 
+    public int getMonsterHealth(){
+        return monsterHealth;
+    }
+
+    public Rectangle getSprite(){
+        return sprite;
+    }
+
     @Override
     public void update(Renderer renderer){
-        sprite.updateY(speed);
+        for(int i=0; i<renderer.getObjects().size();++i){
+            if(renderer.getObjects().get(i) instanceof Monster){
+                if(((Monster) renderer.getObjects().get(i)).getMonsterHealth()==0){
+                    renderer.getObjects().remove(renderer.getObjects().get(i));
+                }
+            }
+
+            if(i<renderer.getObjects().size()) {
+                if (renderer.getObjects().get(i) instanceof Bullet) {
+                    if (((Bullet) renderer.getObjects().get(i)).getSprite().intersects(sprite)) {
+                        monsterHealth--;
+                        renderer.getObjects().remove(renderer.getObjects().get(i));
+                    }
+                }
+            }
+        }
+
     }
 
     @Override
