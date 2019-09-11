@@ -54,10 +54,10 @@ public class Monster implements GameObject {
         for(int i=0; i<renderer.getObjects().size();++i){
             if(renderer.getObjects().get(i) instanceof Monster){
                 if(((Monster) renderer.getObjects().get(i)).getMonsterHealth()==0){
+                    renderer.setScore(renderer.getScore()+1);
                     renderer.getObjects().remove(renderer.getObjects().get(i));
                 }
             }
-
             if(i<renderer.getObjects().size()) {
                 if (renderer.getObjects().get(i) instanceof Bullet) {
                     if (((Bullet) renderer.getObjects().get(i)).getSprite().intersects(sprite)) {

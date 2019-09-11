@@ -21,6 +21,7 @@ public class Renderer extends JPanel {
     private Player player;
     private Map map;
     private long timeElapsed = 0;
+    private int score=0;
 
     /**
      * Defining the resolution of the app
@@ -44,16 +45,11 @@ public class Renderer extends JPanel {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setLayout(null);
         setVisible(true);
+
+        //set text
         setFont(new Font("Arial", Font.PLAIN, 30));
         setForeground(Color.WHITE);
-/*
-        //JLabel for health
-        JLabel playerHealth = new JLabel();
-        playerHealth.setText(player.getPlayerHealth()+"");
-        playerHealth.setVisible(true);
-        playerHealth.setBounds(10,10,200,200);
-        add(playerHealth);
-*/
+
         timeElapsed=System.currentTimeMillis();
 
         /**
@@ -156,7 +152,8 @@ public class Renderer extends JPanel {
         for(int index=0;index<gameObjects.size();++index){
             gameObjects.get(index).render(g);
         }
-        g.drawString("Player health:"+player.getPlayerHealth(), 70,70);
+        g.drawString("Score: "+score, 70,100);
+        g.drawString("Player health: "+player.getPlayerHealth(), 70,70);
     }
 
     public ArrayList getObjects(){
@@ -206,6 +203,14 @@ public class Renderer extends JPanel {
         }
     }
 
+
+    public int getScore(){
+        return score;
+    }
+
+    public void setScore(int score){
+        this.score=score;
+    }
     public Player getPlayer(){
         return player;
     }
