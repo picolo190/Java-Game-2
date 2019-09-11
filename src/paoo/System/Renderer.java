@@ -44,13 +44,16 @@ public class Renderer extends JPanel {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setLayout(null);
         setVisible(true);
-
+        setFont(new Font("Arial", Font.PLAIN, 30));
+        setForeground(Color.WHITE);
+/*
         //JLabel for health
         JLabel playerHealth = new JLabel();
         playerHealth.setText(player.getPlayerHealth()+"");
         playerHealth.setVisible(true);
+        playerHealth.setBounds(10,10,200,200);
         add(playerHealth);
-
+*/
         timeElapsed=System.currentTimeMillis();
 
         /**
@@ -153,6 +156,7 @@ public class Renderer extends JPanel {
         for(int index=0;index<gameObjects.size();++index){
             gameObjects.get(index).render(g);
         }
+        g.drawString("Player health:"+player.getPlayerHealth(), 70,70);
     }
 
     public ArrayList getObjects(){
@@ -181,11 +185,7 @@ public class Renderer extends JPanel {
      * The update method iterates all the game objects and updates it based on its behaviour
      */
     public void update(){
-
-        System.out.println(gameObjects.size());
         player.update(this);
-        System.out.println(player.getPlayerHealth());
-
         Random r = new Random();
         int xMonster = r.nextInt(Renderer.WIDTH-48*3);
         xMonster+=60;
