@@ -41,19 +41,21 @@ public class ImageLoader {
      */
     private ImageLoader() {
         this.water = loadImage("images/water.png");
-        this.grass = loadImage("images/grass.png");
-        this.monsterLeft = loadImage("images/monsterLeft.png");
-        this.monsterRight = loadImage("images/monsterRight.png");
+        //this.grass = loadImage("images/grass.png");
+        this.grass = loadImage("images/cement.png");
+        this.monsterLeft = loadImage("images/trumpLeft.png");
+        this.monsterRight = loadImage("images/trumpRight.png");
         this.mountain = loadImage("images/mountain.png");
         this.rockDown = loadImage("images/rockDown.png");
         this.rockLeft = loadImage("images/rockLeft.png");
         this.rockRight = loadImage("images/rockRight.png");
         this.rockUp = loadImage("images/rockUp.png");
         this.soil = loadImage("images/soil.png");
-        this.town = loadImage("images/townGrass.png");
+        //this.town = loadImage("images/townGrass.png");
+        this.town = loadImage("images/whiteHouse.png");
         this.townGrassDestroyed = loadImage("images/townGrassDestroyed.png");
         this.tree = loadImage("images/tree.png");
-        this.monsterUp=loadImage("images/monsterUp.png");
+        this.monsterUp=loadImage("images/trumpUp.png");
     }
 
     public BufferedImage loadImage(String imageAddress) {
