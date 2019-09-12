@@ -76,7 +76,6 @@ public class Map {
                 Tile tile= getTile(x,y);
                 if(tile!=null) {
                     if (tile.getSprite().intersects(rect)) {
-                        System.out.println(rect.getX()+" "+rect.getY());
                         return true;
                     }
                 }

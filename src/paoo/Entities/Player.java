@@ -12,15 +12,19 @@ public class Player implements GameObject {
     private Rectangle sprite;
     private int playerHealth;
     private int speed;
+    private long timeElapsed;
+
     //0-up, 1-right, 2-down, 3-left
     private int direction;
-    private boolean movingUp=false, movingDown=false, movingRight=false, movingLeft=false;
+
+    private boolean movingUp=false, movingDown=false, movingRight=false, movingLeft=false, isShooting=false;
 
     public Player(int x, int y, int playerHealth, int speed){
         sprite= new Rectangle(x, y,ImageLoader.getInstance().getMonsterLeft());
         direction=3;
         this.playerHealth=playerHealth;
         this.speed=speed;
+        timeElapsed=System.currentTimeMillis();
     }
 
     /**
@@ -77,7 +81,27 @@ public class Player implements GameObject {
         if(lastDirection != direction){
             direction=lastDirection;
         }
+        if(System.currentTimeMillis()-timeElapsed>=300) {
+            timeElapsed=System.currentTimeMillis();
+            if (isShooting) {
+                //direction: 0->right; 1->left; 2->down; 3->up
+                if (direction == 2) {
+                    renderer.addObject(new Bullet(sprite.getX(), sprite.getY(), ImageLoader.getInstance().getRockDown(), 6, 2));
+                }
+                if (direction == 1) {
+                    renderer.addObject(new Bullet(sprite.getX(), sprite.getY(), ImageLoader.getInstance().getRockRight(), 6, 0));
+                }
+                if (direction == 3) {
+                    renderer.addObject(new Bullet(sprite.getX(), sprite.getY(), ImageLoader.getInstance().getRockLeft(), 6, 1));
+                }
+                if (direction == 0) {
+                    renderer.addObject(new Bullet(sprite.getX(), sprite.getY(), ImageLoader.getInstance().getRockUp(), 6, 3));
+                }
+            }
+        }
+
         if(movingRight || movingLeft || movingDown ||movingUp){
+
             collisionCheckRect.setX(collisionCheckRect.getX()+xCollisionOffset);
             collisionCheckRect.setY(collisionCheckRect.getY()+yCollisionOffset);
 
@@ -125,6 +149,14 @@ public class Player implements GameObject {
         if(moving){
             sprite.setSprite(ImageLoader.getInstance().getMonsterRight());
         }
+    }
+
+    public void setShooting(boolean shooting){
+        isShooting =shooting;
+    }
+
+    public boolean getShooting(){
+        return isShooting;
     }
 
     public boolean getMovingUp(){

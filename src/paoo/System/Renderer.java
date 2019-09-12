@@ -2,6 +2,7 @@ package paoo.System;
 
 import paoo.Entities.Bullet;
 import paoo.Entities.GameObject;
+import paoo.Entities.Monster;
 import paoo.Entities.Player;
 import paoo.Map.Map;
 
@@ -19,6 +20,8 @@ public class Renderer extends JPanel {
 
     private Player player;
     private Map map;
+    private long timeElapsed = 0;
+    private int score=0;
 
     /**
      * Defining the resolution of the app
@@ -42,6 +45,12 @@ public class Renderer extends JPanel {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setLayout(null);
         setVisible(true);
+
+        //set text
+        setFont(new Font("Arial", Font.PLAIN, 30));
+        setForeground(Color.WHITE);
+
+        timeElapsed=System.currentTimeMillis();
 
         /**
          * Adding the mouse listener on the JPanel so we can handle the mouse events
@@ -74,7 +83,7 @@ public class Renderer extends JPanel {
         });
 
         /**
-         * Adding the keyboard listener on the jpanel so we can handle the keys pressed
+         * Adding the keyboard listener on the JPanel so we can handle the keys pressed
          */
         addKeyListener(new KeyListener() {
             @Override
@@ -97,19 +106,7 @@ public class Renderer extends JPanel {
                     player.setMovingUp(true);
                 }
                 if(e.getKeyCode()==KeyEvent.VK_SPACE){
-                    //direction: 0->right; 1->left; 2->down; 3->up
-                    if(player.getDirection()==2){
-                        addObject(new Bullet(player.getSprite().getX(),player.getSprite().getY(),ImageLoader.getInstance().getRockDown(), 6, 2));
-                    }
-                    if(player.getDirection()==1){
-                        addObject(new Bullet(player.getSprite().getX(),player.getSprite().getY(),ImageLoader.getInstance().getRockRight(), 6, 0));
-                    }
-                    if(player.getDirection()==3){
-                        addObject(new Bullet(player.getSprite().getX(),player.getSprite().getY(),ImageLoader.getInstance().getRockLeft(), 6, 1));
-                    }
-                    if(player.getDirection()==0){
-                        addObject(new Bullet(player.getSprite().getX(),player.getSprite().getY(),ImageLoader.getInstance().getRockUp(), 6, 3));
-                    }
+                    player.setShooting(true);
                 }
             }
 
@@ -127,6 +124,9 @@ public class Renderer extends JPanel {
                 if(e.getKeyCode()==KeyEvent.VK_W || e.getKeyCode()==KeyEvent.VK_UP){
                     player.setMovingUp(false);
                 }
+                if(e.getKeyCode()==KeyEvent.VK_SPACE){
+                    player.setShooting(false);
+                }
             }
         });
 
@@ -141,7 +141,7 @@ public class Renderer extends JPanel {
     }
 
     /**
-     * Override the paintComponent method in the jpanel so it renders the way we want
+     * Override the paintComponent method in the JPanel so it renders the way we want
      * @param g the graphics component of the jpanel
      */
     @Override
@@ -152,8 +152,13 @@ public class Renderer extends JPanel {
         for(int index=0;index<gameObjects.size();++index){
             gameObjects.get(index).render(g);
         }
+        g.drawString("Score: "+score, 70,100);
+        g.drawString("Player health: "+player.getPlayerHealth(), 70,70);
     }
 
+    public ArrayList getObjects(){
+        return gameObjects;
+    }
 
     /**
      * This method adds a game object to the game
@@ -177,30 +182,37 @@ public class Renderer extends JPanel {
      * The update method iterates all the game objects and updates it based on its behaviour
      */
     public void update(){
-
         player.update(this);
-
         Random r = new Random();
-        int x = r.nextInt();
+        int xMonster = r.nextInt(Renderer.WIDTH-48*3);
+        xMonster+=60;
+        int yMonster = r.nextInt(Renderer.HEIGHT-48*3);
+        yMonster+=60;
+
+        //Spawn monster on a 3 sec delay
+         if(System.currentTimeMillis()-timeElapsed>=3000){
+             timeElapsed=System.currentTimeMillis();
+             Monster spawnMonster=new Monster(xMonster,yMonster,3,3);
+             if(!map.checkCollision(spawnMonster.getSprite())){
+                 addObject(spawnMonster);
+             }
+         }
 
         for(int index=0;index<gameObjects.size();++index){
-
             gameObjects.get(index).update(this);
-
-            //Clearing the bullets which went out of the panel
-            if(gameObjects.get(index) instanceof Bullet)
-            {
-                int currentX=((Bullet) gameObjects.get(index)).getSprite().getX();
-                int currentY=((Bullet) gameObjects.get(index)).getSprite().getY();
-                if(currentX>Renderer.WIDTH || currentX<0){
-                    gameObjects.remove(gameObjects.get(index));
-                }
-                if(currentY>Renderer.HEIGHT || currentY<0){
-                    gameObjects.remove(gameObjects.get(index));
-                }
-            }
-
         }
+    }
+
+
+    public int getScore(){
+        return score;
+    }
+
+    public void setScore(int score){
+        this.score=score;
+    }
+    public Player getPlayer(){
+        return player;
     }
 
 }
