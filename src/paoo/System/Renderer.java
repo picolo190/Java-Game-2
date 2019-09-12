@@ -1,6 +1,5 @@
 package paoo.System;
 
-import paoo.Entities.Bullet;
 import paoo.Entities.GameObject;
 import paoo.Entities.Monster;
 import paoo.Entities.Player;
@@ -52,9 +51,8 @@ public class Renderer extends JPanel {
 
         timeElapsed=System.currentTimeMillis();
 
-        /**
-         * Adding the mouse listener on the JPanel so we can handle the mouse events
-         */
+
+        //Adding the mouse listener on the JPanel so we can handle the mouse events
         addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -82,9 +80,7 @@ public class Renderer extends JPanel {
             }
         });
 
-        /**
-         * Adding the keyboard listener on the JPanel so we can handle the keys pressed
-         */
+        //Adding the keyboard listener to the JPanel
         addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -142,18 +138,29 @@ public class Renderer extends JPanel {
 
     /**
      * Override the paintComponent method in the JPanel so it renders the way we want
-     * @param g the graphics component of the jpanel
+     * @param g the graphics component of the JPanel
      */
     @Override
     public void paintComponent(Graphics g){
 
+        //Call the render method for the map
         map.render(g);
+
+        //Call the render method for the player
         player.render(g);
-        for(int index=0;index<gameObjects.size();++index){
-            gameObjects.get(index).render(g);
+
+        //Iterate all the game objects and calling the render method
+        for (GameObject gameObject : gameObjects) {
+            gameObject.render(g);
         }
+
+        //Drawing Strings on the JPanel for player score and health
         g.drawString("Score: "+score, 70,100);
         g.drawString("Player health: "+player.getPlayerHealth(), 70,70);
+
+        //Calling the sync method for the toolkit to stop the slow generating graphics for linux builds
+        //This method takes some cpu cycles, but otherwise the game gets slower on linux distributions
+        Toolkit.getDefaultToolkit().sync();
     }
 
     public ArrayList getObjects(){
@@ -182,7 +189,11 @@ public class Renderer extends JPanel {
      * The update method iterates all the game objects and updates it based on its behaviour
      */
     public void update(){
+
+        //Updating the player
         player.update(this);
+
+        //Generating a random number for x,y coordinates of the monster
         Random r = new Random();
         int xMonster = r.nextInt(Renderer.WIDTH-48*3);
         xMonster+=60;
@@ -198,8 +209,8 @@ public class Renderer extends JPanel {
              }
          }
 
-        for(int index=0;index<gameObjects.size();++index){
-            gameObjects.get(index).update(this);
+        for (GameObject gameObject : gameObjects) {
+            gameObject.update(this);
         }
     }
 

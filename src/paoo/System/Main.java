@@ -31,6 +31,7 @@ public class Main {
         double nanoSecondConversion = 1000000000.0 / 60; //60 frames per second
         double changeInSeconds = 0;
 
+
         while(true)
         {
             long now = System.nanoTime();
