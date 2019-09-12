@@ -209,8 +209,8 @@ public class Renderer extends JPanel {
              }
          }
 
-        for (GameObject gameObject : gameObjects) {
-            gameObject.update(this);
+        for (int index=0; index<gameObjects.size();++index) {
+            gameObjects.get(index).update(this);
         }
     }
 
