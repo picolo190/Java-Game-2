@@ -133,7 +133,7 @@ public class Player implements GameObject {
     public void setMovingDown(boolean moving){
         movingDown = moving;
         if(moving){
-            sprite.setSprite(ImageLoader.getInstance().getMonsterRight());
+            sprite.setSprite(ImageLoader.getInstance().getMonsterDown());
         }
     }
 
