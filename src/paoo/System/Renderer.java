@@ -7,10 +7,7 @@ import paoo.Map.Map;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -21,6 +18,9 @@ public class Renderer extends JPanel {
     private Map map;
     private long timeElapsed = 0;
     private int score=0;
+    private boolean isRunning=false;
+    private boolean appIsRunning;
+    private boolean nextState=false;
 
     /**
      * Defining the resolution of the app
@@ -37,19 +37,25 @@ public class Renderer extends JPanel {
 
     public Renderer(){
         super();
+        appIsRunning=true;
         map= new Map();
-        player=new Player(100,100,10,4);
+        this.player=new Player(100,100,10,4);
 
         //set the size of the window
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setLayout(null);
         setVisible(true);
+        requestFocusInWindow(true);
+
+
 
         //set text
         setFont(new Font("Arial", Font.PLAIN, 30));
         setForeground(Color.WHITE);
 
         timeElapsed=System.currentTimeMillis();
+
+
 
 
         //Adding the mouse listener on the JPanel so we can handle the mouse events
@@ -80,7 +86,6 @@ public class Renderer extends JPanel {
             }
         });
 
-        //Adding the keyboard listener to the JPanel
         addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -103,6 +108,9 @@ public class Renderer extends JPanel {
                 }
                 if(e.getKeyCode()==KeyEvent.VK_SPACE){
                     player.setShooting(true);
+                }
+                if(e.getKeyCode()==KeyEvent.VK_N && !isRunning){
+                    nextState=true;
                 }
             }
 
@@ -128,6 +136,7 @@ public class Renderer extends JPanel {
 
     }
 
+
     @Override
     public Dimension getPreferredSize(){
         if(isPreferredSizeSet()){
@@ -143,24 +152,31 @@ public class Renderer extends JPanel {
     @Override
     public void paintComponent(Graphics g){
 
-        //Call the render method for the map
-        map.render(g);
+        //If the game is still running then render the map, player and gameObjects else show game over text
+        if(isRunning) {
+            //Call the render method for the map
+            map.render(g);
 
-        //Call the render method for the player
-        player.render(g);
+            //Call the render method for the player
+            player.render(g);
 
-        //Iterate all the game objects and calling the render method
-        for (GameObject gameObject : gameObjects) {
-            gameObject.render(g);
+            //Iterate all the game objects and calling the render method
+            for(int index=0; index<gameObjects.size(); ++index) {
+                gameObjects.get(index).render(g);
+            }
+
+            //Drawing Strings on the JPanel for player score and health
+            g.drawString("Score: " + score, 70, 100);
+            g.drawString("Player health: " + player.getPlayerHealth(), 70, 70);
+
+            //Calling the sync method for the toolkit to stop the slow generating graphics for linux builds
+            //This method takes some cpu cycles, but otherwise the game gets slower on linux distributions
+            Toolkit.getDefaultToolkit().sync();
         }
-
-        //Drawing Strings on the JPanel for player score and health
-        g.drawString("Score: "+score, 70,100);
-        g.drawString("Player health: "+player.getPlayerHealth(), 70,70);
-
-        //Calling the sync method for the toolkit to stop the slow generating graphics for linux builds
-        //This method takes some cpu cycles, but otherwise the game gets slower on linux distributions
-        Toolkit.getDefaultToolkit().sync();
+        else{
+            g.drawString("Game over", Renderer.WIDTH/2-100,Renderer.HEIGHT/2);
+            g.drawString("Press N to continue", Renderer.WIDTH/2-150,Renderer.HEIGHT/2+100);
+        }
     }
 
     public ArrayList getObjects(){
@@ -190,27 +206,33 @@ public class Renderer extends JPanel {
      */
     public void update(){
 
-        //Updating the player
-        player.update(this);
+        //Update the game while it is running
+        if(isRunning) {
+            //Updating the player
+            player.update(this);
 
-        //Generating a random number for x,y coordinates of the monster
-        Random r = new Random();
-        int xMonster = r.nextInt(Renderer.WIDTH-48*3);
-        xMonster+=60;
-        int yMonster = r.nextInt(Renderer.HEIGHT-48*3);
-        yMonster+=60;
+            //Generating a random number for x,y coordinates of the monster
+            Random r = new Random();
+            int xMonster = r.nextInt(Renderer.WIDTH - 48 * 3);
+            xMonster += 60;
+            int yMonster = r.nextInt(Renderer.HEIGHT - 48 * 3);
+            yMonster += 60;
 
-        //Spawn monster on a 3 sec delay
-         if(System.currentTimeMillis()-timeElapsed>=3000){
-             timeElapsed=System.currentTimeMillis();
-             Monster spawnMonster=new Monster(xMonster,yMonster,3,3);
-             if(!map.checkCollision(spawnMonster.getSprite())){
-                 addObject(spawnMonster);
-             }
-         }
+            //Spawn monster on a 3 sec delay
+            if (System.currentTimeMillis() - timeElapsed >= 3000) {
+                timeElapsed = System.currentTimeMillis();
+                Monster spawnMonster = new Monster(xMonster, yMonster, 3, 3);
+                if (!map.checkCollision(spawnMonster.getSprite())) {
+                    addObject(spawnMonster);
+                }
+            }
 
-        for (int index=0; index<gameObjects.size();++index) {
-            gameObjects.get(index).update(this);
+            for (int index = 0; index < gameObjects.size(); ++index) {
+                gameObjects.get(index).update(this);
+            }
+            if(player.getPlayerHealth()==0){
+                isRunning=false;
+            }
         }
     }
 
@@ -226,4 +248,27 @@ public class Renderer extends JPanel {
         return player;
     }
 
+    public boolean getIsRunning(){
+        return isRunning;
+    }
+
+    public void setIsRunning(boolean value){
+        isRunning=value;
+    }
+
+    public boolean getAppIsRunning(){
+        return appIsRunning;
+    }
+
+    public void setAppIsRunning(boolean value){
+        appIsRunning=value;
+    }
+
+    public boolean getNextState(){
+        return nextState;
+    }
+
+    public void setNextState(boolean value){
+        nextState=value;
+    }
 }
