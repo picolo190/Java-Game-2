@@ -3,6 +3,8 @@ package paoo.System;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowEvent;
+
 public class Main {
 
 
@@ -10,7 +12,7 @@ public class Main {
         //Creating the window
         JFrame window = new JFrame();
 
-        //0-menu; 1- game 2-help 3-highscore
+        //0-menu; 1- game; 2-help; 3-highscore
         int gameState = 0;
 
         //Creating the highscore JPanel
@@ -42,7 +44,7 @@ public class Main {
                 case 0:
                     menu.revalidate();
                     menu.repaint();
-                    if (menu.getNextState() != 0) {
+                    if (menu.getNextState() == 1) {
                         window.getContentPane().remove(menu);
                         renderer.setIsRunning(true);
                         gameState=menu.getNextState();
@@ -51,6 +53,9 @@ public class Main {
                         window.repaint();
                         window.getContentPane().add(renderer);
                         renderer.requestFocusInWindow();
+                    }
+                    if(menu.getNextState()==3){
+                        renderer.setAppIsRunning(false);
                     }
                     break;
                 case 1:
@@ -100,6 +105,7 @@ public class Main {
             }
         }
 
+        window.dispatchEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSING));
 
     }
 

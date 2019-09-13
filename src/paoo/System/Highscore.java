@@ -15,6 +15,7 @@ public class Highscore extends JPanel {
         super();
         JButton menuButton= new JButton();
         JButton saveScoreButton= new JButton();
+        JTextField textField= new JTextField("Enter your name here:");
 
 
         //set the size of the window
@@ -30,27 +31,24 @@ public class Highscore extends JPanel {
 
         //Setting the menu button
         menuButton.setText("Back to menu");
-        menuButton.setBounds(100,100,150, 50);
+        menuButton.setBounds(Renderer.WIDTH/2-100,300,200, 50);
         menuButton.setLayout(null);
         menuButton.setVisible(true);
 
         //Setting the save score button
         saveScoreButton.setText("Save Score");
-        saveScoreButton.setBounds(100,200,150, 50);
+        saveScoreButton.setBounds(Renderer.WIDTH/2-100,400,200, 50);
         saveScoreButton.setLayout(null);
         saveScoreButton.setVisible(true);
 
-        menuButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                nextState=true;
-            }
-        });
+        menuButton.addActionListener(actionEvent -> nextState=true);
 
-        saveScoreButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
+        saveScoreButton.addActionListener(actionEvent -> {
 
+            String name = textField.getText();
+            textField.setText("");
+            if(!name.contains("Enter your name here:") && !name.equals("")){
+                //write code to access database
             }
         });
 
@@ -61,7 +59,7 @@ public class Highscore extends JPanel {
 
     @Override
     public void paintComponent(Graphics g){
-        g.drawString("HighScores", Renderer.WIDTH/2, Renderer.HEIGHT/2);
+        g.drawString("HighScores", Renderer.WIDTH/2-100, 100);
     }
 
     public boolean getNextState(){

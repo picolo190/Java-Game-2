@@ -41,26 +41,11 @@ public class Menu extends JPanel {
         exitButton.setLayout(null);
         exitButton.setVisible(true);
 
-        playButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                nextState=1;
-            }
-        });
+        playButton.addActionListener(actionEvent -> nextState=1);
 
-        helpButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                nextState=2;
-            }
-        });
+        helpButton.addActionListener(actionEvent -> nextState=2);
 
-        exitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-
-            }
-        });
+        exitButton.addActionListener(actionEvent -> nextState=3);
 
         add(playButton);
         add(helpButton);
