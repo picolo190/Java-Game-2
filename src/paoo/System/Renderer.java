@@ -192,7 +192,7 @@ public class Renderer extends JPanel {
         //Spawn monster on a 3 sec delay
          if(System.currentTimeMillis()-timeElapsed>=3000){
              timeElapsed=System.currentTimeMillis();
-             Monster spawnMonster=new Monster(xMonster,yMonster,3,3);
+             Monster spawnMonster=new Monster(xMonster,yMonster,2,3);
              if(!map.checkCollision(spawnMonster.getSprite())){
                  addObject(spawnMonster);
              }
