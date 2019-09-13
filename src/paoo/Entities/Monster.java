@@ -14,7 +14,7 @@ public class Monster implements GameObject {
     private long timeElapsed=0;
 
     public Monster(int x, int y, int speed, int health) {
-        sprite=new Rectangle(x, y,ImageLoader.getInstance().getMonsterLeft());
+        sprite=new Rectangle(x, y,ImageLoader.getInstance().getEnemy());
         this.speed=speed;
         monsterHealth=health;
         timeElapsed=System.currentTimeMillis();

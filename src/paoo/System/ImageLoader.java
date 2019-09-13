@@ -14,6 +14,8 @@ public class ImageLoader {
     private final BufferedImage grass;
     private final BufferedImage monsterLeft;
     private final BufferedImage monsterRight;
+    private final BufferedImage monsterDown;
+    private final BufferedImage enemy;
     private final BufferedImage mountain;
     private final BufferedImage rockDown;
     private final BufferedImage rockLeft;
@@ -41,19 +43,23 @@ public class ImageLoader {
      */
     private ImageLoader() {
         this.water = loadImage("images/water.png");
-        this.grass = loadImage("images/grass.png");
-        this.monsterLeft = loadImage("images/monsterLeft.png");
-        this.monsterRight = loadImage("images/monsterRight.png");
+        this.enemy = loadImage("images/random.png");
+        //this.grass = loadImage("images/grass.png");
+        this.grass = loadImage("images/cem.png");
+        this.monsterLeft = loadImage("images/trumpLeft.png");
+        this.monsterRight = loadImage("images/trumpRight.png");
+        this.monsterDown = loadImage("images/trumpDown.png");
         this.mountain = loadImage("images/mountain.png");
         this.rockDown = loadImage("images/rockDown.png");
         this.rockLeft = loadImage("images/rockLeft.png");
         this.rockRight = loadImage("images/rockRight.png");
         this.rockUp = loadImage("images/rockUp.png");
         this.soil = loadImage("images/soil.png");
-        this.town = loadImage("images/townGrass.png");
+        //this.town = loadImage("images/townGrass.png");
+        this.town = loadImage("images/castle.png");
         this.townGrassDestroyed = loadImage("images/townGrassDestroyed.png");
         this.tree = loadImage("images/tree.png");
-        this.monsterUp=loadImage("images/monsterUp.png");
+        this.monsterUp=loadImage("images/trumpUp.png");
     }
 
     public BufferedImage loadImage(String imageAddress) {
@@ -78,6 +84,8 @@ public class ImageLoader {
     public BufferedImage getGrass(){ return grass;}
     public BufferedImage getMonsterLeft(){ return monsterLeft;}
     public BufferedImage getMonsterRight(){ return monsterRight;}
+    public BufferedImage getMonsterDown(){ return monsterDown;}
+    public BufferedImage getEnemy(){ return enemy;}
     public BufferedImage getMountain(){ return mountain;}
     public BufferedImage getRockDown(){ return rockDown;}
     public BufferedImage getRockLeft(){ return rockLeft;}
