@@ -2,8 +2,7 @@ package paoo.System;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 public class Highscore extends JPanel {
 
@@ -17,6 +16,11 @@ public class Highscore extends JPanel {
         JButton saveScoreButton= new JButton();
         JTextField textField= new JTextField("Enter your name here:");
 
+
+        //Setting the JTextField
+        textField.setBounds(Renderer.WIDTH/2-100, 200,200,50);
+        textField.setLayout(null);
+        textField.setVisible(true);
 
         //set the size of the window
         setPreferredSize(new Dimension(Renderer.WIDTH, Renderer.HEIGHT));
@@ -43,6 +47,13 @@ public class Highscore extends JPanel {
 
         menuButton.addActionListener(actionEvent -> nextState=true);
 
+        textField.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent mouseEvent) {
+                textField.setText("");
+            }
+        });
+
         saveScoreButton.addActionListener(actionEvent -> {
 
             String name = textField.getText();
@@ -54,6 +65,7 @@ public class Highscore extends JPanel {
 
         add(menuButton);
         add(saveScoreButton);
+        add(textField);
 
     }
 

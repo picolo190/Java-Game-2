@@ -230,7 +230,7 @@ public class Renderer extends JPanel {
             for (int index = 0; index < gameObjects.size(); ++index) {
                 gameObjects.get(index).update(this);
             }
-            if(player.getPlayerHealth()==0){
+            if(player.getPlayerHealth() <= 0){
                 isRunning=false;
             }
         }
