@@ -14,23 +14,14 @@ public class DBConnection {
 
     public void getHighScores(JPanel panel){
         try {
-            if(panel.getComponents()!=null){
-                Component[] temp= panel.getComponents();
-                for(int i=0; i<temp.length; ++i){
-                    if(temp[i] instanceof JLabel){
-                        panel.remove(temp[i]);
-                    }
-                }
-            }
-            panel.revalidate();
-            panel.repaint();
             Statement statement = c.createStatement();
             int i=1;
 
             JLabel temp1 = new JLabel("High scores");
             temp1.setBounds(Renderer.WIDTH*3/4,25,500,25);
-            panel.add(temp1);
             temp1.setVisible(true);
+            panel.add(temp1);
+
 
             //Select all the fields from the HighScore table and print the records
             ResultSet rs = statement.executeQuery("SELECT * FROM HIGHSCORE ORDER BY LEVEL DESC, SCORE DESC");
@@ -40,8 +31,8 @@ public class DBConnection {
                 int leveldb = rs.getInt("Level");
                 JLabel temp = new JLabel(i + ") Nume: " + namedb + " Level: " + leveldb + " Scor: " + scoredb);
                 temp.setBounds(Renderer.WIDTH * 3 / 4, 25 + (i * 25), 500, 25);
-                panel.add(temp);
                 temp.setVisible(true);
+                panel.add(temp);
                 ++i;
             }
             statement.close();
