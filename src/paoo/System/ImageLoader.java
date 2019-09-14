@@ -27,6 +27,7 @@ public class ImageLoader {
     private final BufferedImage townGrassDestroyed;
     private final BufferedImage monsterUp;
     private final BufferedImage tree;
+    private final BufferedImage tnt;
     private static ImageLoader instance=null;
 
     public static ImageLoader getInstance(){
@@ -45,8 +46,8 @@ public class ImageLoader {
     private ImageLoader() {
         this.water = loadImage("images/water.png");
         this.enemy = loadImage("images/random.png");
-        //this.grass = loadImage("images/grass.png");
-        this.grass = loadImage("images/cem.png");
+        this.grass = loadImage("images/grass.png");
+        //this.grass = loadImage("images/cem.png");
         this.monsterLeft = loadImage("images/trumpLeft.png");
         this.monsterRight = loadImage("images/trumpRight.png");
         this.monsterDown = loadImage("images/trumpDown.png");
@@ -55,14 +56,14 @@ public class ImageLoader {
         this.rockLeft = loadImage("images/rockLeft.png");
         this.rockRight = loadImage("images/rockRight.png");
         this.rockUp = loadImage("images/rockUp.png");
-        this.soil = loadImage("images/soil.png");
+        this.soil = loadImage("images/Dirt.PNG");
         //this.town = loadImage("images/townGrass.png");
         this.town = loadImage("images/castle.png");
         this.townGrassDestroyed = loadImage("images/townGrassDestroyed.png");
         this.tree = loadImage("images/tree.png");
         this.monsterUp=loadImage("images/trumpUp.png");
-        this.highScoreBackground = loadImage("images/imagine.jpg");
-
+        this.tnt = loadImage("images/Tnt.PNG");
+        this.highScoreBackground=loadImage("images/imagine.jpg");
     }
 
     public BufferedImage loadImage(String imageAddress) {
@@ -100,5 +101,6 @@ public class ImageLoader {
     public BufferedImage getTownGrassDestroyed(){ return townGrassDestroyed;}
     public BufferedImage getMonsterUp(){return monsterUp;}
     public BufferedImage getTree(){ return tree;}
+    public BufferedImage getTNT() { return tnt;}
 
 }

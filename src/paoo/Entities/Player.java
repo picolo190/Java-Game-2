@@ -108,7 +108,7 @@ public class Player implements GameObject {
             Rectangle axisCheckRect= new Rectangle(collisionCheckRect.getX(), collisionCheckRect.getY(),
                     collisionCheckRect.getWidth(), collisionCheckRect.getHeight());
 
-            if(!renderer.getMap().checkCollision(axisCheckRect)){
+            if(!renderer.getMap().checkCollision(axisCheckRect, renderer.getLevel())){
                 sprite.setX(collisionCheckRect.getX() -xCollisionOffset);
             }
 
@@ -117,7 +117,7 @@ public class Player implements GameObject {
             axisCheckRect.setHeight(collisionCheckRect.getHeight());
             axisCheckRect.setWidth(collisionCheckRect.getWidth());
 
-            if(!renderer.getMap().checkCollision(axisCheckRect)){
+            if(!renderer.getMap().checkCollision(axisCheckRect,renderer.getLevel())){
                 sprite.setY(collisionCheckRect.getY()-yCollisionOffset);
             }
         }

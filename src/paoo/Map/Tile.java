@@ -7,7 +7,7 @@ public class Tile {
     private int id;
     public Rectangle sprite;
     private boolean collision;
-    //0-soil; 1- mountain; 2-water; 3-castle
+    //0-soil; 1- mountain; 2-water; 3-castle; 4-tree; 5-TNT
 
 
     /**
@@ -31,6 +31,12 @@ public class Tile {
             case 3:
                 sprite= new Rectangle(x,y, ImageLoader.getInstance().getTown());
                 break;
+            case 4:
+                sprite = new Rectangle(x,y,ImageLoader.getInstance().getTree());
+                break;
+            case 5:
+                sprite = new Rectangle(x,y,ImageLoader.getInstance().getTNT());
+                break;
             default:
                 sprite= new Rectangle(x,y,ImageLoader.getInstance().getGrass());
                 break;
@@ -45,6 +51,14 @@ public class Tile {
      */
     public boolean isCollision(){
         return collision;
+    }
+
+    /**
+     * Setter method for the collision field
+     * @param collision = the new collision
+     */
+    public void setCollision(boolean collision){
+        this.collision = collision;
     }
 
     /**
@@ -66,4 +80,6 @@ public class Tile {
     public int getId(){
         return id;
     }
+
+
 }
