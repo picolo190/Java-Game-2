@@ -3,13 +3,14 @@ package paoo.System;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class Highscore extends JPanel {
 
     private boolean nextState=false;
     private DBConnection dbConnection;
     private Renderer renderer;
-    private boolean drawScores=false;
+    private boolean drawScores=true;
 
     public Highscore(Renderer renderer)
     {
@@ -72,24 +73,18 @@ public class Highscore extends JPanel {
         add(menuButton);
         add(saveScoreButton);
         add(textField);
-        getScores();
-
     }
 
     @Override
     public void paintComponent(Graphics g){
-        if(!drawScores){
-            if(getComponents()!=null){
-                Component[] temp=getComponents();
-                for(int i=0; i<temp.length; ++i){
-                    if(temp[i] instanceof JLabel){
-                        temp[i].setVisible(false);
-                    }
-                }
-                drawScores=false;
-                getScores();
+        ArrayList<String> aux = getScores();
+        drawScores=true;
+        if(aux!=null) {
+            for (int i = 0; i < aux.size(); i++) {
+                g.drawString(aux.get(i), Renderer.WIDTH * 3 / 4, 25 + ((i + 1) * 25));
             }
         }
+        g.drawString("HIGHSCORE",Renderer.WIDTH*3/4, 25);
         g.drawString("HighScores", Renderer.WIDTH/2-100, 100);
     }
 
@@ -97,8 +92,8 @@ public class Highscore extends JPanel {
         return nextState;
     }
 
-    public void getScores(){
-        dbConnection.getHighScores(this);
+    public ArrayList<String> getScores(){
+        return dbConnection.getHighScores();
     }
 
     public boolean getDrawScore(){

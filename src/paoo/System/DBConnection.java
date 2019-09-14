@@ -1,47 +1,54 @@
 package paoo.System;
 
+
 import javax.swing.*;
 import java.awt.*;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DBConnection {
     private Connection c=null;
+    ArrayList<String> vector= new ArrayList<>();
 
     public DBConnection(){
         createConnection();
         System.out.println("Opened database successfully");
     }
 
-    public void getHighScores(JPanel panel){
+    public ArrayList<String> getHighScores(){
         try {
             Statement statement = c.createStatement();
-            int i=1;
-
-            JLabel temp1 = new JLabel("High scores");
-            temp1.setBounds(Renderer.WIDTH*3/4,25,500,25);
-            temp1.setVisible(true);
-            panel.add(temp1);
-
+            int i=0;
 
             //Select all the fields from the HighScore table and print the records
             ResultSet rs = statement.executeQuery("SELECT * FROM HIGHSCORE ORDER BY LEVEL DESC, SCORE DESC");
-            while(rs.next() && i<=15) {
-                String namedb = rs.getString("Name");
-                int scoredb = rs.getInt("Score");
-                int leveldb = rs.getInt("Level");
-                JLabel temp = new JLabel(i + ") Nume: " + namedb + " Level: " + leveldb + " Scor: " + scoredb);
-                temp.setBounds(Renderer.WIDTH * 3 / 4, 25 + (i * 25), 500, 25);
-                temp.setVisible(true);
-                panel.add(temp);
-                ++i;
+            if(vector.size()==0) {
+                while (rs.next() && i < 15) {
+                    String namedb = rs.getString("Name");
+                    int scoredb = rs.getInt("Score");
+                    int leveldb = rs.getInt("Level");
+                    vector.add(i + ") Nume: " + namedb + " Level: " + leveldb + " Scor: " + scoredb);
+                    ++i;
+                }
+            }
+            else{
+                while (rs.next() && i < 15 && i<vector.size()) {
+                    String namedb = rs.getString("Name");
+                    int scoredb = rs.getInt("Score");
+                    int leveldb = rs.getInt("Level");
+                    vector.set(i,i + ") Nume: " + namedb + " Level: " + leveldb + " Scor: " + scoredb);
+                    ++i;
+                }
             }
             statement.close();
+            return vector;
         }
         catch(Exception e){
             //codde
             e.printStackTrace();
             System.exit(0);
         }
+        return null;
     }
 
     public void setScore(String name, int score, int level){
