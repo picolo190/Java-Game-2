@@ -58,6 +58,7 @@ public class Highscore extends JPanel {
                 textField.setText("");
             }
         });
+
         saveScoreButton.addActionListener(actionEvent -> {
             String name = textField.getText();
             textField.setText("");
@@ -65,6 +66,7 @@ public class Highscore extends JPanel {
                 //write code to access database
                 dbConnection.setScore(name,this.renderer.getScore(), this.renderer.getLevel());
                 getScores();
+                drawScores=false;
             }
         });
 
@@ -86,6 +88,7 @@ public class Highscore extends JPanel {
     public boolean getNextState(){
         return nextState;
     }
+
     public void getScores(){
         dbConnection.getHighScores(this);
     }

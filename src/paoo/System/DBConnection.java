@@ -1,6 +1,7 @@
 package paoo.System;
 
 import javax.swing.*;
+import java.awt.*;
 import java.sql.*;
 
 public class DBConnection {
@@ -13,8 +14,23 @@ public class DBConnection {
 
     public void getHighScores(JPanel panel){
         try {
+            if(panel.getComponents()!=null){
+                Component[] temp= panel.getComponents();
+                for(int i=0; i<temp.length; ++i){
+                    if(temp[i] instanceof JLabel){
+                        panel.remove(temp[i]);
+                    }
+                }
+            }
+            panel.revalidate();
+            panel.repaint();
             Statement statement = c.createStatement();
             int i=1;
+
+            JLabel temp1 = new JLabel("High scores");
+            temp1.setBounds(Renderer.WIDTH*3/4,25,500,25);
+            panel.add(temp1);
+            temp1.setVisible(true);
 
             //Select all the fields from the HighScore table and print the records
             ResultSet rs = statement.executeQuery("SELECT * FROM HIGHSCORE ORDER BY LEVEL DESC, SCORE DESC");
@@ -28,6 +44,7 @@ public class DBConnection {
                 temp.setVisible(true);
                 ++i;
             }
+            statement.close();
         }
         catch(Exception e){
             //codde
@@ -45,7 +62,7 @@ public class DBConnection {
             stmt.setString(3, level+"");
             int rowInserted=stmt.executeUpdate();
             System.out.println(rowInserted);
-
+            stmt.close();
         }
         catch ( Exception e1) {
             e1.printStackTrace();
@@ -57,7 +74,7 @@ public class DBConnection {
         try{
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:game.db");
-            c.setAutoCommit(false);
+            //c.setAutoCommit(false);
         }
         catch(Exception e){
             //Exception handler
