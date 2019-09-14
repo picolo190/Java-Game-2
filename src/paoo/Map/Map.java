@@ -51,8 +51,21 @@ public class Map {
         map2.add(new Tile(48*12, 48*11,2,true));
         map2.add(new Tile(48*20, 48*5, 3,true));
         map2.add(new Tile(48*20, 48*7, 0,true));
-        map2.add(new Tile(48*19, 48*4, 0,true));
-       // map2.add(new Tile(48*20, 48*5, 3,true));
+        map2.add(new Tile(48*21, 48*7, 0,true));
+        map2.add(new Tile(48*22, 48*7, 0,true));
+        map2.add(new Tile(48*22, 48*6, 0,true));
+        map2.add(new Tile(48*23, 48*6, 0,true));
+        map2.add(new Tile(48*23, 48*7, 0,true));
+
+
+        map2.add(new Tile(48*8, 48*4, 1,true));
+        map2.add(new Tile(48*9, 48*4, 1,true));
+        map2.add(new Tile(48*8, 48*5, 1,true));
+
+        map2.add(new Tile(48*17, 48*11, 1,true));
+        map2.add(new Tile(48*18, 48*11, 1,true));
+        map2.add(new Tile(48*19, 48*12, 1,true));
+
 
     }
 
