@@ -54,7 +54,9 @@ public class Menu extends JPanel {
     }
 
     @Override
-    public void paintComponent(Graphics g){
+    public void paintComponent(Graphics g)
+    {
+        g.drawImage(ImageLoader.getInstance().getHighScoreBackground(),0,0,null);
         g.drawString("Menu",Renderer.WIDTH/2-50,200);
     }
 

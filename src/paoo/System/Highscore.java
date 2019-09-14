@@ -81,9 +81,9 @@ public class Highscore extends JPanel {
         g.drawImage(ImageLoader.getInstance().getHighScoreBackground(), 0,0, null);
         ArrayList<String> aux = getScores();
         for (int i = 0; i < aux.size(); i++) {
-            g.drawString(aux.get(i), Renderer.WIDTH * 3 / 4, 25 + ((i + 1) * 25));
+            g.drawString(aux.get(i), Renderer.WIDTH * 3 / 5, 25 + ((i + 1) * 25));
         }
-        g.drawString("HIGHSCORE",Renderer.WIDTH*3/4, 25);
+        g.drawString("HIGHSCORE",Renderer.WIDTH*3/5, 25);
         g.drawString("HighScores", Renderer.WIDTH/2-100, 100);
     }
 
