@@ -13,7 +13,7 @@ import java.util.Random;
 
 public class Renderer extends JPanel {
 
-
+    private int level=1;
     private Player player;
     private Map map;
     private long timeElapsed = 0;
@@ -62,7 +62,7 @@ public class Renderer extends JPanel {
         addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("mouse (x,y) coordinates: "+e.getX()+" "+e.getY());
+
             }
 
             @Override
@@ -168,7 +168,7 @@ public class Renderer extends JPanel {
             //Drawing Strings on the JPanel for player score and health
             g.drawString("Score: " + score, 70, 100);
             g.drawString("Player health: " + player.getPlayerHealth(), 70, 70);
-
+            g.drawString("Level: "+level,70,130);
             //Calling the sync method for the toolkit to stop the slow generating graphics for linux builds
             //This method takes some cpu cycles, but otherwise the game gets slower on linux distributions
             Toolkit.getDefaultToolkit().sync();
@@ -270,5 +270,13 @@ public class Renderer extends JPanel {
 
     public void setNextState(boolean value){
         nextState=value;
+    }
+
+    public int getLevel(){
+        return level;
+    }
+
+    public void setLevel(int level){
+        this.level=level;
     }
 }

@@ -15,11 +15,11 @@ public class Main {
         //0-menu; 1- game; 2-help; 3-highscore
         int gameState = 0;
 
-        //Creating the highscore JPanel
-        Highscore highscore = new Highscore();
-
         //Creating the JPanel on which we draw
         Renderer renderer = new Renderer();
+
+        //Creating the highscore JPanel
+        Highscore highscore = new Highscore(renderer);
 
         //Create the menu JPanel
         Menu menu = new Menu();

@@ -7,11 +7,16 @@ import java.awt.event.*;
 public class Highscore extends JPanel {
 
     private boolean nextState=false;
+    private DBConnection dbConnection;
+    private Renderer renderer;
+    private boolean drawScores=false;
 
-    public Highscore()
+    public Highscore(Renderer renderer)
     {
         //Initialize the JComponents
         super();
+        this.renderer=renderer;
+        dbConnection=new DBConnection();
         JButton menuButton= new JButton();
         JButton saveScoreButton= new JButton();
         JTextField textField= new JTextField("Enter your name here:");
@@ -53,13 +58,13 @@ public class Highscore extends JPanel {
                 textField.setText("");
             }
         });
-
         saveScoreButton.addActionListener(actionEvent -> {
-
             String name = textField.getText();
             textField.setText("");
             if(!name.contains("Enter your name here:") && !name.equals("")){
                 //write code to access database
+                dbConnection.setScore(name,this.renderer.getScore(), this.renderer.getLevel());
+                getScores();
             }
         });
 
@@ -71,11 +76,18 @@ public class Highscore extends JPanel {
 
     @Override
     public void paintComponent(Graphics g){
+        if(!drawScores) {
+            getScores();
+            drawScores = true;
+        }
         g.drawString("HighScores", Renderer.WIDTH/2-100, 100);
     }
 
     public boolean getNextState(){
         return nextState;
+    }
+    public void getScores(){
+        dbConnection.getHighScores(this);
     }
 
     public void setNextState(boolean value){
