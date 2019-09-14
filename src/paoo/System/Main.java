@@ -3,6 +3,8 @@ package paoo.System;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowEvent;
+
 public class Main {
 
 
@@ -10,8 +12,11 @@ public class Main {
         //Creating the window
         JFrame window = new JFrame();
 
-        //0-menu; 1- game 2-help 3-highscore
+        //0-menu; 1- game; 2-help; 3-highscore
         int gameState = 0;
+
+        //Creating the highscore JPanel
+        Highscore highscore = new Highscore();
 
         //Creating the JPanel on which we draw
         Renderer renderer = new Renderer();
@@ -39,14 +44,18 @@ public class Main {
                 case 0:
                     menu.revalidate();
                     menu.repaint();
-                    //
-                    if (menu.getNextState() != 0) {
+                    if (menu.getNextState() == 1) {
                         window.getContentPane().remove(menu);
                         renderer.setIsRunning(true);
                         gameState=menu.getNextState();
                         menu.setNextState(0);
+                        window.revalidate();
+                        window.repaint();
                         window.getContentPane().add(renderer);
                         renderer.requestFocusInWindow();
+                    }
+                    if(menu.getNextState()==3){
+                        renderer.setAppIsRunning(false);
                     }
                     break;
                 case 1:
@@ -66,7 +75,29 @@ public class Main {
                     }
                     //Get the frame to the next state which is highscore every time
                     if(renderer.getNextState()) {
+                        window.remove(renderer);
+                        window.revalidate();
+                        window.repaint();
+                        window.add(highscore);
+                        highscore.requestFocusInWindow();
+                        renderer.setNextState(false);
                         gameState = 3;
+                    }
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    highscore.revalidate();
+                    highscore.repaint();
+                    if(highscore.getNextState()){
+                        highscore.setNextState(false);
+                        window.remove(highscore);
+                        window.revalidate();
+                        window.repaint();
+                        renderer=new Renderer();
+                        window.add(menu);
+                        gameState=0;
+                        menu.requestFocusInWindow();
                     }
                     break;
                 default:
@@ -74,6 +105,7 @@ public class Main {
             }
         }
 
+        window.dispatchEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSING));
 
     }
 
