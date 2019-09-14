@@ -3,15 +3,21 @@ package paoo.System;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class Highscore extends JPanel {
 
     private boolean nextState=false;
+    private DBConnection dbConnection;
+    private Renderer renderer;
+    private boolean drawScores=true;
 
-    public Highscore()
+    public Highscore(Renderer renderer)
     {
         //Initialize the JComponents
         super();
+        this.renderer=renderer;
+        dbConnection=new DBConnection();
         JButton menuButton= new JButton();
         JButton saveScoreButton= new JButton();
         JTextField textField= new JTextField("Enter your name here:");
@@ -55,27 +61,44 @@ public class Highscore extends JPanel {
         });
 
         saveScoreButton.addActionListener(actionEvent -> {
-
             String name = textField.getText();
             textField.setText("");
             if(!name.contains("Enter your name here:") && !name.equals("")){
                 //write code to access database
+                dbConnection.setScore(name,this.renderer.getScore(), this.renderer.getLevel());
+                getScores();
             }
         });
 
         add(menuButton);
         add(saveScoreButton);
         add(textField);
-
     }
 
     @Override
     public void paintComponent(Graphics g){
+        ArrayList<String> aux = getScores();
+        for (int i = 0; i < aux.size(); i++) {
+            g.drawString(aux.get(i), Renderer.WIDTH * 3 / 4, 25 + ((i + 1) * 25));
+        }
+        g.drawString("HIGHSCORE",Renderer.WIDTH*3/4, 25);
         g.drawString("HighScores", Renderer.WIDTH/2-100, 100);
     }
 
     public boolean getNextState(){
         return nextState;
+    }
+
+    public ArrayList<String> getScores(){
+        return dbConnection.getHighScores();
+    }
+
+    public boolean getDrawScore(){
+        return drawScores;
+    }
+
+    public void setDrawScores(boolean value){
+        drawScores=value;
     }
 
     public void setNextState(boolean value){

@@ -15,7 +15,8 @@ import java.util.ArrayList;
 public class Map {
 
     //The mapped Tiles in the map
-    private ArrayList<Tile> map= new ArrayList<>();
+    private ArrayList<Tile> map1= new ArrayList<>();
+    private ArrayList<Tile> map2 = new ArrayList<>();
 
     /**
      * The Map class constructor
@@ -24,17 +25,34 @@ public class Map {
 
         //First the map gets filled with the border
         for(int x = 0; x< Renderer.WIDTH/48; ++x) {
-            map.add(new Tile(x*48, 0, 1, true));
-            map.add(new Tile(x*48, (Renderer.HEIGHT/48-1)*48, 1, true));
+            map1.add(new Tile(x*48, 0, 1, true));
+            map1.add(new Tile(x*48, (Renderer.HEIGHT/48-1)*48, 1, true));
+            map2.add(new Tile(x*48, 0, 1, true));
+            map2.add(new Tile(x*48, (Renderer.HEIGHT/48-1)*48, 1, true));
+
         }
         for(int y=1; y<Renderer.HEIGHT/48; ++y) {
-            map.add(new Tile(0, y*48, 1, true));
-            map.add(new Tile((Renderer.WIDTH/48-1)*48, y*48, 1, true));
+            map1.add(new Tile(0, y*48, 1, true));
+            map1.add(new Tile((Renderer.WIDTH/48-1)*48, y*48, 1, true));
+            map2.add(new Tile(0, y*48, 1, true));
+            map2.add(new Tile((Renderer.WIDTH/48-1)*48, y*48, 1, true));
         }
 
         //Now we fill the map however we want
-        map.add(new Tile(48*10, 48*10, 2, true));
-        map.add(new Tile(48*11, 48*10, 3,true));
+        map1.add(new Tile(48*10, 48*10, 2, true));
+        map1.add(new Tile(48*11, 48*10, 3,true));
+
+
+        map2.add(new Tile(48*10, 48*10,2,true));
+        map2.add(new Tile(48*10, 48*11,2,true));
+        map2.add(new Tile(48*11, 48*10,2,true));
+        map2.add(new Tile(48*11, 48*11,2,true));
+        map2.add(new Tile(48*12, 48*10,2,true));
+        map2.add(new Tile(48*12, 48*11,2,true));
+        map2.add(new Tile(48*20, 48*5, 3,true));
+        map2.add(new Tile(48*20, 48*7, 0,true));
+        map2.add(new Tile(48*19, 48*4, 0,true));
+       // map2.add(new Tile(48*20, 48*5, 3,true));
 
     }
 
@@ -44,10 +62,21 @@ public class Map {
      * @param y = the y position of the mapped tile; int
      * @return this method returns a tile; Tile
      */
-    public Tile getTile(int x, int y){
-        for(Tile tile: map){
-            if(tile.getSprite().getX()==x && tile.getSprite().getY()==y){
-                return tile;
+    public Tile getTile(int x, int y, int level){
+        if (level ==1)
+        {
+            for (Tile tile : map1) {
+                if (tile.getSprite().getX() == x && tile.getSprite().getY() == y) {
+                    return tile;
+                }
+            }
+        }
+        else if (level == 2)
+        {
+            for (Tile tile : map2) {
+                if (tile.getSprite().getX() == x && tile.getSprite().getY() == y) {
+                    return tile;
+                }
             }
         }
         return null;
@@ -73,7 +102,7 @@ public class Map {
         //iterating through all the blocks that surrounds the player
         for(int x=blockX; x<=maxBlockX; x+=48){
             for(int y=blockY; y<=maxBlockY; y+=48){
-                Tile tile= getTile(x,y);
+                Tile tile= getTile(x,y,2);
                 if(tile!=null) {
                     if (tile.getSprite().intersects(rect)) {
                         return true;
@@ -89,15 +118,19 @@ public class Map {
      * Getter method for the mapped tiles
      * @return the arraylist of mapped tiles
      */
-    public ArrayList getMappedTiles(){
-        return map;
+    public ArrayList getMappedTiles(int level){
+        if (level == 1)
+        {
+            return map1;
+        }
+        return map2;
     }
 
     /**
      * This method renders the tiles of the map
      * @param g the view on which tiles will be rendered
      */
-    public void render(Graphics g){
+    public void render(Graphics g, int level){
         //filling the map with grass
         for(int x=0;x<(Renderer.WIDTH/48)*48 ;x+= ImageLoader.getInstance().getGrass().getWidth(null)){
             for(int y=0;y<(Renderer.HEIGHT/48)*48 ;y+=ImageLoader.getInstance().getGrass().getHeight(null)){
@@ -106,9 +139,17 @@ public class Map {
         }
 
         //iterating through all the mapped blocks
-        for(int i=0; i<map.size();++i){
-            Rectangle tempRect=map.get(i).getSprite();
-            g.drawImage(tempRect.getSprite(), tempRect.getX(), tempRect.getY(), null);
+        if (level == 1) {
+            for (int i = 0; i < map1.size(); ++i) {
+                Rectangle tempRect = map1.get(i).getSprite();
+                g.drawImage(tempRect.getSprite(), tempRect.getX(), tempRect.getY(), null);
+            }
+        }
+        else {
+            for (int i = 0; i < map2.size(); ++i) {
+                Rectangle tempRect = map2.get(i).getSprite();
+                g.drawImage(tempRect.getSprite(), tempRect.getX(), tempRect.getY(), null);
+            }
         }
     }
 
