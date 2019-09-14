@@ -212,7 +212,8 @@ public class Renderer extends JPanel {
             player.update(this);
             if(score >= level*10)
             {
-                player.setPlayerHealth(10);
+                //player.setPlayerHealth(10);
+                this.player=new Player(100,100,10,4);
                 score=0;
                 setLevel(level+1);
             }

@@ -45,7 +45,7 @@ public class ImageLoader {
     private ImageLoader() {
         this.water = loadImage("images/water.png");
         this.enemy = loadImage("images/random.png");
-        this.grass = loadImage("images/cem.png");
+        this.grass = loadImage("images/grass.png");
         //this.grass = loadImage("images/cem.png");
         this.monsterLeft = loadImage("images/trumpLeft.png");
         this.monsterRight = loadImage("images/trumpRight.png");

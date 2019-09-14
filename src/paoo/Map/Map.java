@@ -6,7 +6,6 @@ import paoo.System.Renderer;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * The map class represents the map
@@ -53,16 +52,17 @@ public class Map {
         map1.add(new Tile(48*11, 48*12, 2, true));
         map1.add(new Tile(48*12, 48*12, 2,true));
 
-        /*
-        for (int k = 0 ; k < 4 ; k++)
-        {
-            Random i = new Random();
-            Random j = new Random();
-
-        }
-        */
         map1.add(new Tile(48*15, 48*3, 4,true));
+        map1.add(new Tile(48*16, 48*3, 1,true));
+        map1.add(new Tile(48*16, 48*4, 1,true));
+
         map1.add(new Tile(48*18, 48*13, 4,true));
+        map1.add(new Tile(48*18, 48*14, 1,true));
+        map1.add(new Tile(48*17, 48*10, 1,true));
+        map1.add(new Tile(48*17, 48*11, 2, true));
+        map1.add(new Tile(48*16, 48*11, 2, true));
+        map1.add(new Tile(48*16, 48*10, 2, true));
+
         map1.add(new Tile(48*4, 48*6, 4,true));
 
 
