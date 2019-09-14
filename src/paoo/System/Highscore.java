@@ -66,7 +66,7 @@ public class Highscore extends JPanel {
             if(!name.contains("Enter your name here:") && !name.equals("")){
                 //write code to access database
                 dbConnection.setScore(name,this.renderer.getScore(), this.renderer.getLevel());
-                drawScores=false;
+                getScores();
             }
         });
 
@@ -78,11 +78,8 @@ public class Highscore extends JPanel {
     @Override
     public void paintComponent(Graphics g){
         ArrayList<String> aux = getScores();
-        drawScores=true;
-        if(aux!=null) {
-            for (int i = 0; i < aux.size(); i++) {
-                g.drawString(aux.get(i), Renderer.WIDTH * 3 / 4, 25 + ((i + 1) * 25));
-            }
+        for (int i = 0; i < aux.size(); i++) {
+            g.drawString(aux.get(i), Renderer.WIDTH * 3 / 4, 25 + ((i + 1) * 25));
         }
         g.drawString("HIGHSCORE",Renderer.WIDTH*3/4, 25);
         g.drawString("HighScores", Renderer.WIDTH/2-100, 100);
