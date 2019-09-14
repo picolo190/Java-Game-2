@@ -58,9 +58,7 @@ public class Highscore extends JPanel {
                 textField.setText("");
             }
         });
-
         saveScoreButton.addActionListener(actionEvent -> {
-
             String name = textField.getText();
             textField.setText("");
             if(!name.contains("Enter your name here:") && !name.equals("")){
