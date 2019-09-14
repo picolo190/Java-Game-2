@@ -14,23 +14,6 @@ public class DBConnection {
 
         createConnection();
         System.out.println("Opened database successfully");
-        try {
-            Statement statement = c.createStatement();
-            int i = 0;
-
-            ResultSet rs = statement.executeQuery("SELECT * FROM HIGHSCORE ORDER BY LEVEL DESC, SCORE DESC");
-
-            while (rs.next() && i < 15 && i < vector.size()) {
-                String namedb = rs.getString("Name");
-                int scoredb = rs.getInt("Score");
-                int leveldb = rs.getInt("Level");
-                vector.add(i + ") Nume: " + namedb + " Level: " + leveldb + " Scor: " + scoredb);
-                ++i;
-            }
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
     }
 
     public ArrayList<String> getHighScores(){
@@ -42,12 +25,18 @@ public class DBConnection {
             ResultSet rs = statement.executeQuery("SELECT * FROM HIGHSCORE ORDER BY LEVEL DESC, SCORE DESC");
 
 
-            while (rs.next() && i < 15 && i<vector.size()) {
+            while (rs.next() && i < 15 ) {
                 String namedb = rs.getString("Name");
                 int scoredb = rs.getInt("Score");
                 int leveldb = rs.getInt("Level");
-                vector.set(i,i + ") Nume: " + namedb + " Level: " + leveldb + " Scor: " + scoredb);
-                ++i;
+                if(i>=vector.size()){
+                    vector.add(i + ") Nume: " + namedb + " Level: " + leveldb + " Scor: " + scoredb);
+                    ++i;
+                }
+                else{
+                    vector.set(i,i + ") Nume: " + namedb + " Level: " + leveldb + " Scor: " + scoredb);
+                    ++i;
+                }
             }
 
             statement.close();

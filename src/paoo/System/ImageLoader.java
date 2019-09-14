@@ -10,6 +10,7 @@ import java.io.File;
  * using this method, we avoid loading the same images every time we update the panel
  */
 public class ImageLoader {
+    private final BufferedImage highScoreBackground;
     private final BufferedImage water;
     private final BufferedImage grass;
     private final BufferedImage monsterLeft;
@@ -60,6 +61,8 @@ public class ImageLoader {
         this.townGrassDestroyed = loadImage("images/townGrassDestroyed.png");
         this.tree = loadImage("images/tree.png");
         this.monsterUp=loadImage("images/trumpUp.png");
+        this.highScoreBackground = loadImage("images/imagine.jpg");
+
     }
 
     public BufferedImage loadImage(String imageAddress) {
@@ -80,6 +83,7 @@ public class ImageLoader {
     /**
      * getter functions so we can get whatever image we need
      */
+    public BufferedImage getHighScoreBackground(){return highScoreBackground;}
     public BufferedImage getWater(){ return water;}
     public BufferedImage getGrass(){ return grass;}
     public BufferedImage getMonsterLeft(){ return monsterLeft;}

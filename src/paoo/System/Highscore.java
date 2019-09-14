@@ -21,6 +21,7 @@ public class Highscore extends JPanel {
         JButton menuButton= new JButton();
         JButton saveScoreButton= new JButton();
         JTextField textField= new JTextField("Enter your name here:");
+        setBackground(Color.WHITE);
 
 
         //Setting the JTextField
@@ -77,6 +78,7 @@ public class Highscore extends JPanel {
 
     @Override
     public void paintComponent(Graphics g){
+        g.drawImage(ImageLoader.getInstance().getHighScoreBackground(), 0,0, null);
         ArrayList<String> aux = getScores();
         for (int i = 0; i < aux.size(); i++) {
             g.drawString(aux.get(i), Renderer.WIDTH * 3 / 4, 25 + ((i + 1) * 25));
