@@ -7,7 +7,7 @@ public class Tile {
     private int id;
     public Rectangle sprite;
     private boolean collision;
-    //0-soil; 1- mountain; 2-water; 3-castle
+    //0-soil; 1- mountain; 2-water; 3-castle; 4-tree; 5-TNT
 
 
     /**
@@ -54,6 +54,14 @@ public class Tile {
     }
 
     /**
+     * Setter method for the collision field
+     * @param collision = the new collision
+     */
+    public void setCollision(boolean collision){
+        this.collision = collision;
+    }
+
+    /**
      * Setter method for the sprite field
      * @param sprite = the new sprite to be set; Rectangle output
      */
@@ -72,4 +80,6 @@ public class Tile {
     public int getId(){
         return id;
     }
+
+
 }

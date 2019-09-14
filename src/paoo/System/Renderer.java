@@ -13,7 +13,7 @@ import java.util.Random;
 
 public class Renderer extends JPanel {
 
-    private int level=3;
+    private int level=1;
     private Player player;
     private Map map;
     private long timeElapsed = 0;
@@ -155,7 +155,7 @@ public class Renderer extends JPanel {
         //If the game is still running then render the map, player and gameObjects else show game over text
         if(isRunning) {
             //Call the render method for the map
-            map.render(g,3);
+            map.render(g,level);
 
             //Call the render method for the player
             player.render(g);
@@ -210,6 +210,12 @@ public class Renderer extends JPanel {
         if(isRunning) {
             //Updating the player
             player.update(this);
+            if(score >= level*10)
+            {
+                player.setPlayerHealth(10);
+                score=0;
+                setLevel(level+1);
+            }
 
             //Generating a random number for x,y coordinates of the monster
             Random r = new Random();
@@ -222,7 +228,7 @@ public class Renderer extends JPanel {
             if (System.currentTimeMillis() - timeElapsed >= 3000) {
                 timeElapsed = System.currentTimeMillis();
                 Monster spawnMonster = new Monster(xMonster, yMonster, 3, 3);
-                if (!map.checkCollision(spawnMonster.getSprite())) {
+                if (!map.checkCollision(spawnMonster.getSprite(),level)) {
                     addObject(spawnMonster);
                 }
             }

@@ -146,7 +146,7 @@ public class Map {
      * @param rect = usually the player of the entity that has it's own behaviour
      * @return = true if it collides, false if it doesn't; boolean
      */
-    public boolean checkCollision(Rectangle rect){
+    public boolean checkCollision(Rectangle rect, int level){
         int currentX=rect.getX();
         int currentY=rect.getY();
 
@@ -161,7 +161,7 @@ public class Map {
         //iterating through all the blocks that surrounds the player
         for(int x=blockX; x<=maxBlockX; x+=48){
             for(int y=blockY; y<=maxBlockY; y+=48){
-                Tile tile= getTile(x,y,3);
+                Tile tile= getTile(x,y,level);
                 if(tile!=null) {
                     if (tile.getSprite().intersects(rect)) {
                         return true;
