@@ -31,6 +31,12 @@ public class Tile {
             case 3:
                 sprite= new Rectangle(x,y, ImageLoader.getInstance().getTown());
                 break;
+            case 4:
+                sprite = new Rectangle(x,y,ImageLoader.getInstance().getTree());
+                break;
+            case 5:
+                sprite = new Rectangle(x,y,ImageLoader.getInstance().getTNT());
+                break;
             default:
                 sprite= new Rectangle(x,y,ImageLoader.getInstance().getGrass());
                 break;

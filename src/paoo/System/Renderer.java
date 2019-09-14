@@ -13,7 +13,7 @@ import java.util.Random;
 
 public class Renderer extends JPanel {
 
-    private int level=1;
+    private int level=3;
     private Player player;
     private Map map;
     private long timeElapsed = 0;
@@ -155,7 +155,7 @@ public class Renderer extends JPanel {
         //If the game is still running then render the map, player and gameObjects else show game over text
         if(isRunning) {
             //Call the render method for the map
-            map.render(g,2);
+            map.render(g,3);
 
             //Call the render method for the player
             player.render(g);
