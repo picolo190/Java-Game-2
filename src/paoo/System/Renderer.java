@@ -155,7 +155,7 @@ public class Renderer extends JPanel {
         //If the game is still running then render the map, player and gameObjects else show game over text
         if(isRunning) {
             //Call the render method for the map
-            map.render(g);
+            map.render(g,2);
 
             //Call the render method for the player
             player.render(g);
