@@ -3,13 +3,14 @@ package paoo.System;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class Highscore extends JPanel {
 
     private boolean nextState=false;
     private DBConnection dbConnection;
     private Renderer renderer;
-    private boolean drawScores=false;
+    private boolean drawScores=true;
 
     public Highscore(Renderer renderer)
     {
@@ -20,6 +21,7 @@ public class Highscore extends JPanel {
         JButton menuButton= new JButton();
         JButton saveScoreButton= new JButton();
         JTextField textField= new JTextField("Enter your name here:");
+        setBackground(Color.WHITE);
 
 
         //Setting the JTextField
@@ -58,6 +60,7 @@ public class Highscore extends JPanel {
                 textField.setText("");
             }
         });
+
         saveScoreButton.addActionListener(actionEvent -> {
             String name = textField.getText();
             textField.setText("");
@@ -71,23 +74,33 @@ public class Highscore extends JPanel {
         add(menuButton);
         add(saveScoreButton);
         add(textField);
-
     }
 
     @Override
     public void paintComponent(Graphics g){
-        if(!drawScores) {
-            getScores();
-            drawScores = true;
+        g.drawImage(ImageLoader.getInstance().getHighScoreBackground(), 0,0, null);
+        ArrayList<String> aux = getScores();
+        for (int i = 0; i < aux.size(); i++) {
+            g.drawString(aux.get(i), Renderer.WIDTH * 3 / 5, 25 + ((i + 1) * 25));
         }
+        g.drawString("HIGHSCORE",Renderer.WIDTH*3/5, 25);
         g.drawString("HighScores", Renderer.WIDTH/2-100, 100);
     }
 
     public boolean getNextState(){
         return nextState;
     }
-    public void getScores(){
-        dbConnection.getHighScores(this);
+
+    public ArrayList<String> getScores(){
+        return dbConnection.getHighScores();
+    }
+
+    public boolean getDrawScore(){
+        return drawScores;
+    }
+
+    public void setDrawScores(boolean value){
+        drawScores=value;
     }
 
     public void setNextState(boolean value){

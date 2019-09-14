@@ -1,39 +1,53 @@
 package paoo.System;
 
+
 import javax.swing.*;
+import java.awt.*;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DBConnection {
     private Connection c=null;
+    ArrayList<String> vector= new ArrayList<>();
 
     public DBConnection(){
+
         createConnection();
         System.out.println("Opened database successfully");
     }
 
-    public void getHighScores(JPanel panel){
+    public ArrayList<String> getHighScores(){
         try {
             Statement statement = c.createStatement();
-            int i=1;
+            int i=0;
 
             //Select all the fields from the HighScore table and print the records
             ResultSet rs = statement.executeQuery("SELECT * FROM HIGHSCORE ORDER BY LEVEL DESC, SCORE DESC");
-            while(rs.next() && i<=15) {
+
+
+            while (rs.next() && i < 15 ) {
                 String namedb = rs.getString("Name");
                 int scoredb = rs.getInt("Score");
                 int leveldb = rs.getInt("Level");
-                JLabel temp = new JLabel(i + ") Nume: " + namedb + " Level: " + leveldb + " Scor: " + scoredb);
-                temp.setBounds(Renderer.WIDTH * 3 / 4, 25 + (i * 25), 500, 25);
-                panel.add(temp);
-                temp.setVisible(true);
-                ++i;
+                if(i>=vector.size()){
+                    vector.add(i + ") Nume: " + namedb + " Level: " + leveldb + " Scor: " + scoredb);
+                    ++i;
+                }
+                else{
+                    vector.set(i,i + ") Nume: " + namedb + " Level: " + leveldb + " Scor: " + scoredb);
+                    ++i;
+                }
             }
+
+            statement.close();
+            return vector;
         }
         catch(Exception e){
             //codde
             e.printStackTrace();
             System.exit(0);
         }
+        return null;
     }
 
     public void setScore(String name, int score, int level){
@@ -45,7 +59,7 @@ public class DBConnection {
             stmt.setString(3, level+"");
             int rowInserted=stmt.executeUpdate();
             System.out.println(rowInserted);
-
+            stmt.close();
         }
         catch ( Exception e1) {
             e1.printStackTrace();
@@ -57,7 +71,7 @@ public class DBConnection {
         try{
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:game.db");
-            c.setAutoCommit(false);
+            //c.setAutoCommit(false);
         }
         catch(Exception e){
             //Exception handler
