@@ -49,6 +49,7 @@ public class Main {
                     menu.repaint();
                     if (menu.getNextState() == 1) {
                         window.getContentPane().remove(menu);
+                        renderer= new Renderer();
                         renderer.setIsRunning(true);
                         gameState=menu.getNextState();
                         menu.setNextState(0);
