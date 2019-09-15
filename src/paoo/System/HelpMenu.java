@@ -38,11 +38,11 @@ public class HelpMenu extends JPanel {
 
         //Setting the button's icon
         playerSpriteOne.setIcon(new ImageIcon(ImageLoader.getInstance().getMonsterDown()));
-        playerSpriteTwo.setIcon(new ImageIcon(ImageLoader.getInstance().getMonsterLeft()));
+        playerSpriteTwo.setIcon(new ImageIcon(ImageLoader.getInstance().getZeldaDown()));
         playerSpriteOne.setBounds(Renderer.WIDTH/4, 500,
                 ImageLoader.getInstance().getMonsterDown().getWidth(), ImageLoader.getInstance().getMonsterDown().getHeight());
         playerSpriteTwo.setBounds(Renderer.WIDTH/4*3, 500,
-                ImageLoader.getInstance().getMonsterLeft().getWidth(), ImageLoader.getInstance().getMonsterLeft().getHeight());
+                ImageLoader.getInstance().getZeldaDown().getWidth(), ImageLoader.getInstance().getZeldaDown().getHeight());
 
 
         //Setting the back button
@@ -52,10 +52,10 @@ public class HelpMenu extends JPanel {
         //Adding the ActionListeners to the buttons
         backButton.addActionListener(actionEvent -> nextState=true);
         playerSpriteOne.addActionListener(actionEvent -> {
-
+                    selectedSprite = 0;
         });
         playerSpriteTwo.addActionListener(actionEvent -> {
-
+                    selectedSprite = 1;
         });
 
         add(playerSpriteOne);
