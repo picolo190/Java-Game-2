@@ -15,6 +15,9 @@ public class Main {
         //0-menu; 1- game; 2-help; 3-highscore
         int gameState = 0;
 
+        //Creating the help JPanel
+        HelpMenu helpMenu= new HelpMenu();
+
         //Creating the JPanel on which we draw
         Renderer renderer = new Renderer();
 
@@ -54,6 +57,15 @@ public class Main {
                         window.getContentPane().add(renderer);
                         renderer.requestFocusInWindow();
                     }
+                    if(menu.getNextState()==2){
+                        window.remove(menu);
+                        gameState=menu.getNextState();
+                        menu.setNextState(0);
+                        window.revalidate();
+                        window.repaint();
+                        window.add(helpMenu);
+                        helpMenu.requestFocus();
+                    }
                     if(menu.getNextState()==3){
                         renderer.setAppIsRunning(false);
                     }
@@ -85,6 +97,17 @@ public class Main {
                     }
                     break;
                 case 2:
+                    helpMenu.revalidate();
+                    helpMenu.repaint();
+                    if(helpMenu.getNextState()){
+                        helpMenu.setNextState(false);
+                        window.remove(helpMenu);
+                        window.revalidate();
+                        window.repaint();
+                        window.add(menu);
+                        gameState=0;
+                        menu.requestFocusInWindow();
+                    }
                     break;
                 case 3:
                     highscore.revalidate();
