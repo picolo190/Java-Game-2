@@ -16,6 +16,10 @@ public class ImageLoader {
     private final BufferedImage monsterLeft;
     private final BufferedImage monsterRight;
     private final BufferedImage monsterDown;
+    private final BufferedImage zeldaUp;
+    private final BufferedImage zeldaLeft;
+    private final BufferedImage zeldaDown;
+    private final BufferedImage zeldaRight;
     private final BufferedImage enemy;
     private final BufferedImage mountain;
     private final BufferedImage rockDown;
@@ -51,6 +55,10 @@ public class ImageLoader {
         this.monsterLeft = loadImage("images/trumpLeft.png");
         this.monsterRight = loadImage("images/trumpRight.png");
         this.monsterDown = loadImage("images/trumpDown.png");
+        this.zeldaLeft = loadImage("images/zeldaLeft.png");
+        this.zeldaUp = loadImage("images/zeldaUp.png");
+        this.zeldaRight = loadImage("images/zeldaRight.png");
+        this.zeldaDown = loadImage("images/zeldaUp.png");
         this.mountain = loadImage("images/mountain.png");
         this.rockDown = loadImage("images/rockDown.png");
         this.rockLeft = loadImage("images/rockLeft.png");
@@ -87,9 +95,27 @@ public class ImageLoader {
     public BufferedImage getHighScoreBackground(){return highScoreBackground;}
     public BufferedImage getWater(){ return water;}
     public BufferedImage getGrass(){ return grass;}
-    public BufferedImage getMonsterLeft(){ return monsterLeft;}
-    public BufferedImage getMonsterRight(){ return monsterRight;}
-    public BufferedImage getMonsterDown(){ return monsterDown;}
+    public BufferedImage getMonsterLeft(){
+        if(HelpMenu.selectedSprite ==0){
+        return monsterLeft;
+        }
+        else
+            return zeldaLeft;
+    }
+    public BufferedImage getMonsterRight(){
+        if(HelpMenu.selectedSprite ==0) {
+            return monsterRight;
+        }
+        else
+            return zeldaRight;
+    }
+    public BufferedImage getMonsterDown(){
+        if(HelpMenu.selectedSprite ==0 ) {
+            return monsterDown;
+        }
+        else
+            return zeldaDown;
+    }
     public BufferedImage getEnemy(){ return enemy;}
     public BufferedImage getMountain(){ return mountain;}
     public BufferedImage getRockDown(){ return rockDown;}
@@ -99,8 +125,18 @@ public class ImageLoader {
     public BufferedImage getSoil(){ return soil;}
     public BufferedImage getTown(){ return town;}
     public BufferedImage getTownGrassDestroyed(){ return townGrassDestroyed;}
-    public BufferedImage getMonsterUp(){return monsterUp;}
+    public BufferedImage getMonsterUp(){
+        if(HelpMenu.selectedSprite == 0) {
+            return monsterUp;
+        }
+        else
+            return zeldaUp;
+    }
     public BufferedImage getTree(){ return tree;}
     public BufferedImage getTNT() { return tnt;}
+    public BufferedImage getZeldaLeft(){ return zeldaLeft;}
+    public BufferedImage getZeldaUp(){ return zeldaUp;}
+    public BufferedImage getZeldaDown(){ return zeldaDown;}
+    public BufferedImage getZeldaRight(){ return zeldaRight;}
 
 }
