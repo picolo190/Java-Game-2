@@ -174,7 +174,12 @@ public class Renderer extends JPanel {
             Toolkit.getDefaultToolkit().sync();
         }
         else{
-            g.drawString("Game over", Renderer.WIDTH/2-100,Renderer.HEIGHT/2);
+            if(level==3 && score>=level*10){
+                g.drawString("You won", Renderer.WIDTH/2-100,Renderer.HEIGHT/2);
+            }
+            else {
+                g.drawString("Game over", Renderer.WIDTH / 2 - 100, Renderer.HEIGHT / 2);
+            }
             g.drawString("Press N to continue", Renderer.WIDTH/2-150,Renderer.HEIGHT/2+100);
         }
     }
@@ -238,6 +243,9 @@ public class Renderer extends JPanel {
                 gameObjects.get(index).update(this);
             }
             if(player.getPlayerHealth() <= 0){
+                isRunning=false;
+            }
+            if(level==3 && score>=level*10){
                 isRunning=false;
             }
         }
