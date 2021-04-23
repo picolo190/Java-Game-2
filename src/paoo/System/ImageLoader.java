@@ -35,13 +35,10 @@ public class ImageLoader {
     private static ImageLoader instance=null;
 
     public static ImageLoader getInstance(){
-        if( instance != null){
-            return instance;
+        if (instance == null) {
+            instance = new ImageLoader();
         }
-        else{
-            instance=new ImageLoader();
-            return instance;
-        }
+        return instance;
     }
 
     /**

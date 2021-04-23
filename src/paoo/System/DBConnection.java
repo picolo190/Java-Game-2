@@ -1,8 +1,6 @@
 package paoo.System;
 
 
-import javax.swing.*;
-import java.awt.*;
 import java.sql.*;
 import java.util.ArrayList;
 
